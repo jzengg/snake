@@ -1,4 +1,4 @@
-html, body, figure {
+html, body, figure, ul, li {
   border: 0;
   padding: 0;
   margin: 0;
@@ -11,7 +11,41 @@ html, body, figure {
 
 }
 
+ul {
+  list-style: none;
+}
+
+.group:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.board {
+  margin: 10px auto;
+  display: block;
+  width: 800px;
+  border: 2px solid black;
+  background: blue;
+}
+
+.square {
+  display: block;
+  float: left;
+  width: 36px;
+  height: 36px;
+  border: 2px solid black;
+}
+
+.snake {
+  background: yellow;
+}
+
+.apple {
+  background: red;
+}
+
 figure {
-  
+
 
 }
