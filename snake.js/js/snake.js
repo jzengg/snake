@@ -42,22 +42,35 @@
   };
 
   Snake.prototype.move = function () {
+    var oldSegment, newSegment, changeCoord;
     if (this.dir !== "X") {
-        var oldSegment = this.segments.pop();
-        var changeCoord = new Coord(Snake.DIRECTIONS[this.dir]);
+        oldSegment = this.segments.pop();
+        changeCoord = new Coord(Snake.DIRECTIONS[this.dir]);
 
       if (this.segments.length === 0) {
-        var newSegment = oldSegment.plus(changeCoord);
+        newSegment = oldSegment.plus(changeCoord);
       }
       else {
-        var newSegment = this.segments[0].plus(changeCoord);
+       newSegment = this.segments[0].plus(changeCoord);
       }
       this.segments.unshift(newSegment);
     }
   };
 
+  
+
+  Snake.prototype.isDead = function () {
+
+  };
+
   Snake.prototype.turn = function (newDir) {
-    this.dir = newDir;
+    console.log("called turned");
+    if (Snake.OPPOSITES[this.dir] == newDir) {
+      return;
+    } else {
+      this.dir = newDir;
+
+    }
   };
 
   Snake.prototype.grow = function () {

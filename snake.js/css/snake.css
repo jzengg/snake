@@ -26,19 +26,21 @@ ul {
   display: block;
   width: 800px;
   border: 2px solid black;
-  background: blue;
+  background: white;
 }
 
 .square {
   display: block;
   float: left;
-  width: 36px;
-  height: 36px;
-  border: 2px solid black;
+  width: 38px;
+  height: 38px;
+  border: 1px solid black;
 }
 
 .snake {
   background: yellow;
+  border: 1px solid yellow;
+  border-radius: 5px;
 }
 
 .apple {

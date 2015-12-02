@@ -21,6 +21,12 @@
     return grid;
   };
 
+  Board.prototype.inRange = function (pos) {
+    return pos.every(function (coord) {
+      return coord < 20 && coord >= 0;
+    });
+  };
+
   Board.prototype.render = function () {
     var res = [];
     for (var i = 0; i < this.grid.length; i++) {

@@ -10,10 +10,10 @@
 
     $("html").on("keydown", function(e) {
       var key = e.keyCode;
-      this.board.snake.dir = View.KEYS[key];
+      this.board.snake.turn(View.KEYS[key]);
     }.bind(this));
 
-    setInterval(this.step.bind(this), 100);
+    setInterval(this.step.bind(this), 120);
   };
 
   View.KEYS = {
@@ -28,10 +28,6 @@
     this.board.snake.move();
     this.render(oldSegment);
   };
-
-  // View.prototype.drawBoard = function () {
-  //   this.$el.html("<pre>" + this.board.render() + "</pre>");
-  // };
 
   View.prototype.setupBoard = function () {
     var $ul = $("<ul></ul>").addClass("board group");
