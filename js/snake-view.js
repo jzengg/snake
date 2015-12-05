@@ -12,13 +12,12 @@
     $("html").on("keydown", function(e) {
       e.preventDefault();
       var key = e.keyCode;
-      if (![37,38,39,40].includes(key)) {
-        return;
+      if ([37,38,39,40].includes(key)) {
+        this.board.snake.turn(View.KEYS[key]);
       }
-      this.board.snake.turn(View.KEYS[key]);
     }.bind(this));
 
-    this.interval = setInterval(this.step.bind(this), 120);
+    this.interval = setTimeout(this.step.bind(this), 120);
   };
 
   View.KEYS = {
@@ -29,7 +28,7 @@
   };
 
   View.prototype.step = function () {
-
+      this.board.snake.alreadyTurned = false;
       var oldSegment = this.board.snake.segments.slice(-1)[0];
       this.board.snake.move();
       this.render(oldSegment);
@@ -79,6 +78,7 @@
     }
 
     newSquare.addClass("snake");
+    setTimeout(this.step.bind(this), 120);
   };
 
   View.prototype.generateApple = function () {

@@ -25,6 +25,7 @@
   var Snake = window.SnakeGame.Snake = function () {
     this.segments = [new Coord([10, 10])];
     this.dir = "X";
+    this.alreadyTurned = false;
   };
 
   Snake.DIRECTIONS = {
@@ -77,10 +78,9 @@
   };
 
   Snake.prototype.turn = function (newDir) {
-    if (Snake.OPPOSITES[this.dir] == newDir) {
-      return;
-    } else {
+    if (!this.isDead(this.segments[0]) && !this.alreadyTurned) {
       this.dir = newDir;
+      this.alreadyTurned = true;
 
     }
   };
