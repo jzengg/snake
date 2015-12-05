@@ -46,6 +46,10 @@ ul {
   border-radius : 50%;
 }
 
+figure h4.score {
+  text-align: center;
+}
+
 figure h4.score:after {
   content: attr(data-score);
 }
