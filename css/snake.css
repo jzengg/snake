@@ -24,27 +24,26 @@ ul {
 .board {
   margin: 10px auto;
   display: block;
-  width: 800px;
-  border: 2px solid black;
+  width: 600px;
+  border: 1px solid black;
   background: white;
 }
 
 .square {
   display: block;
   float: left;
-  width: 38px;
-  height: 38px;
-  border: 1px solid black;
+  width: 28px;
+  height: 28px;
+  border: 1px dotted lightgrey;
 }
 
 .snake {
   background: yellow;
-  border: 1px solid yellow;
-  border-radius: 5px;
 }
 
 .apple {
   background: red;
+  border-radius : 50%;
 }
 
 figure h4.score:after {
