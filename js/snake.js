@@ -57,14 +57,26 @@
     }
   };
 
-  
+  Snake.prototype.snakeCollision = function () {
+    if (this.segments.length === 1) {
+      return false;
+    } else {
+      return this.segments.slice(1).some(function (segment) {
+        return this.segments[0].equals(segment);
+      }.bind(this));
 
-  Snake.prototype.isDead = function () {
+    }
+  };
 
+
+  Snake.prototype.isDead = function (head) {
+    return (
+      !window.SnakeGame.Board.prototype.inRange(head) ||
+      this.snakeCollision()
+    );
   };
 
   Snake.prototype.turn = function (newDir) {
-    console.log("called turned");
     if (Snake.OPPOSITES[this.dir] == newDir) {
       return;
     } else {

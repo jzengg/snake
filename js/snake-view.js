@@ -9,11 +9,15 @@
     this.board = new window.SnakeGame.Board();
 
     $("html").on("keydown", function(e) {
+      e.preventDefault();
       var key = e.keyCode;
+      if (![37,38,39,40].includes(key)) {
+        return;
+      }
       this.board.snake.turn(View.KEYS[key]);
     }.bind(this));
 
-    setInterval(this.step.bind(this), 120);
+    this.interval = setInterval(this.step.bind(this), 120);
   };
 
   View.KEYS = {
@@ -24,9 +28,11 @@
   };
 
   View.prototype.step = function () {
-    var oldSegment = this.board.snake.segments.slice(-1)[0];
-    this.board.snake.move();
-    this.render(oldSegment);
+
+      var oldSegment = this.board.snake.segments.slice(-1)[0];
+      this.board.snake.move();
+      this.render(oldSegment);
+
   };
 
   View.prototype.setupBoard = function () {
@@ -42,11 +48,20 @@
     this.$el.append($ul);
   };
 
+  View.prototype.handleGameOver = function () {
+    clearInterval(this.interval);
+    this.$el.append("<div class='gameover'> gameover div </div>");
+  };
+
   View.prototype.render = function (oldSegment) {
     var n = 20 * oldSegment.row + oldSegment.col + 1;
     this.$el.find("li:nth-child(" + n + ")").removeClass("snake");
 
     var newSegment = this.board.snake.segments[0];
+    if (this.board.snake.isDead(newSegment)) {
+      this.handleGameOver();
+      return;
+    }
     n = 20 * newSegment.row + newSegment.col + 1;
     var newSquare = this.$el.find("li:nth-child(" + n + ")");
 
