@@ -47,7 +47,6 @@ ul {
   background: red;
 }
 
-figure {
-
-
+figure h4.score:after {
+  content: attr(data-score);
 }

@@ -7,6 +7,7 @@
   var View = window.SnakeGame.View = function($el) {
     this.$el = $el;
     this.board = new window.SnakeGame.Board();
+    this.score = 0;
 
     $("html").on("keydown", function(e) {
       e.preventDefault();
@@ -53,6 +54,11 @@
     this.$el.append("<div class='gameover'> gameover div </div>");
   };
 
+  View.prototype.incrementScore = function () {
+    this.score = this.score + this.board.snake.segments.length * 10;
+    $(this.$el.find("h4.score")).attr("data-score", this.score);
+  };
+
   View.prototype.render = function (oldSegment) {
     var n = 20 * oldSegment.row + oldSegment.col + 1;
     this.$el.find("li:nth-child(" + n + ")").removeClass("snake");
@@ -68,6 +74,7 @@
     if (newSquare.hasClass("apple")) {
       newSquare.removeClass("apple");
       this.board.snake.grow();
+      this.incrementScore();
       this.generateApple();
     }
 

@@ -22,7 +22,6 @@
   };
 
   Board.prototype.inRange = function (coord) {
-    console.log(coord.row, coord.col);
     return [coord.row, coord.col].every(function (coord) {
       return coord < 20 && coord >= 0;
     });
