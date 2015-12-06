@@ -27,7 +27,7 @@
   View.prototype.resetGame = function () {
     this.board = new window.SnakeGame.Board();
     this.score = 0;
-    $(this.$el.find("h4.score")).attr("data-score", View.score);
+    $(this.$el.find("h4.score")).attr("data-score", this.score);
     this.$el.find("li").removeClass("snake");
     this.$el.find("div.notification").toggle();
 
