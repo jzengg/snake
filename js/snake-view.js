@@ -28,8 +28,9 @@
     this.board = new window.SnakeGame.Board();
     this.score = 0;
     $(this.$el.find("h4.score")).attr("data-score", this.score);
-    this.$el.find("li").removeClass("snake");
+    this.$el.find("li").removeClass("snake apple");
     this.$el.find("div.notification").toggle();
+    this.generateApple();
 
     setTimeout(this.step.bind(this), 120);
   };
