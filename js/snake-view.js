@@ -25,9 +25,12 @@
   };
 
   View.prototype.resetGame = function () {
-    View.board = new window.SnakeGame.Board();
-    View.score = 0;
+    this.board = new window.SnakeGame.Board();
+    this.score = 0;
     $(this.$el.find("h4.score")).attr("data-score", View.score);
+    this.$el.find("li").removeClass("snake");
+    this.$el.find("div.notification").toggle();
+
     setTimeout(this.step.bind(this), 120);
   };
 
@@ -74,6 +77,7 @@
 
     var newSegment = this.board.snake.segments[0];
     if (this.board.snake.isDead(newSegment)) {
+      console.log("snake is dead")
       this.handleGameOver();
       return;
     }

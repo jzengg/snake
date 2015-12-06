@@ -78,7 +78,7 @@
   };
 
   Snake.prototype.turn = function (newDir) {
-    if (!this.isDead(this.segments[0]) && !this.alreadyTurned) {
+    if (!this.isDead(this.segments[0]) && !this.alreadyTurned && Snake.OPPOSITES[this.dir] !== newDir) {
       this.dir = newDir;
       this.alreadyTurned = true;
 
