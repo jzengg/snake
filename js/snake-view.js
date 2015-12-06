@@ -77,7 +77,6 @@
 
     var newSegment = this.board.snake.segments[0];
     if (this.board.snake.isDead(newSegment)) {
-      console.log("snake is dead")
       this.handleGameOver();
       return;
     }
