@@ -17,7 +17,18 @@
       }
     }.bind(this));
 
-    this.interval = setTimeout(this.step.bind(this), 120);
+    $("div.play-button").on("click", function (e) {
+      this.resetGame();
+    }.bind(this));
+
+    setTimeout(this.step.bind(this), 120);
+  };
+
+  View.prototype.resetGame = function () {
+    View.board = new window.SnakeGame.Board();
+    View.score = 0;
+    $(this.$el.find("h4.score")).attr("data-score", View.score);
+    setTimeout(this.step.bind(this), 120);
   };
 
   View.KEYS = {
@@ -49,7 +60,6 @@
   };
 
   View.prototype.handleGameOver = function () {
-    clearInterval(this.interval);
     this.$el.find("div.notification").toggle();
   };
 

@@ -20,14 +20,23 @@ figure div.notification {
   position: absolute;
   text-align: center;
   display: none;
-  padding: 10px;
+  padding: 5px;
   width: 200px;
   left: 38%;
   top: 50%;
-  background: black;
+  background: grey;
   color: white;
   font-size: 24px;
 
+}
+
+figure div.notification div {
+  margin: 30px;
+}
+
+figure div.notification div.play-button:hover {
+  cursor: pointer;
+  color: yellow;
 }
 
 figure {
