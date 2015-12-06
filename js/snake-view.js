@@ -12,7 +12,7 @@
     $("html").on("keydown", function(e) {
       e.preventDefault();
       var key = e.keyCode;
-      if ([37,38,39,40].includes(key)) {
+      if ([37,38,39,40].indexOf(key) !== -1) {
         this.board.snake.turn(View.KEYS[key]);
       }
     }.bind(this));
@@ -50,7 +50,7 @@
 
   View.prototype.handleGameOver = function () {
     clearInterval(this.interval);
-    this.$el.append("<div class='gameover'> gameover div </div>");
+    this.$el.find("div.notification").toggle();
   };
 
   View.prototype.incrementScore = function () {
