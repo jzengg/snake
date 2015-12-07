@@ -18,16 +18,22 @@ body {
 
 figure div.notification {
   position: absolute;
+  box-shadow: 2px 2px 2px grey;
   text-align: center;
   display: none;
   padding: 5px;
-  width: 200px;
-  left: 38%;
-  top: 50%;
+  width: 410px;
+  left: 23%;
+  top: 40%;
   background: grey;
   color: white;
   font-size: 24px;
 
+}
+
+figure div.notification div.game-over {
+  font-weight: bold;
+  font-size: 36px;
 }
 
 figure div.notification div {
@@ -81,6 +87,7 @@ ul {
 }
 
 figure h4.score {
+  font-size: 32px;
   text-align: center;
 }
 

@@ -68,7 +68,7 @@
   };
 
   View.prototype.incrementScore = function () {
-    this.score = this.score + this.board.snake.segments.length * 10;
+    this.score = this.score + Math.floor(this.board.snake.segments.length * 13 * Math.random());
     $(this.$el.find("h4.score")).attr("data-score", this.score);
   };
 
@@ -92,7 +92,12 @@
     }
 
     newSquare.addClass("snake");
-    setTimeout(this.step.bind(this), 120);
+    var length = this.board.snake.segments.length;
+    var speed = 150 - length ;
+    if (speed <= 70) {
+      speed = 70;
+    }
+    setTimeout(this.step.bind(this), speed);
   };
 
   View.prototype.generateApple = function () {
