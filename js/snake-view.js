@@ -93,7 +93,7 @@
 
     newSquare.addClass("snake");
     var length = this.board.snake.segments.length;
-    var speed = 150 - length ;
+    var speed = 150 - length*2 ;
     if (speed <= 70) {
       speed = 70;
     }
