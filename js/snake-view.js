@@ -73,7 +73,7 @@
   View.prototype.handleGameOver = function () {
     this.$el.find("div.notification").toggle();
     $("html").on("keydown.shortcut", function (e) {
-      if (e.keyCode == 32 || e.keyCode == 13) {
+      if (e.keyCode == 32) {
         this.resetGame();
       }
     }.bind(this));

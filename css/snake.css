@@ -82,7 +82,7 @@ ul {
 .board {
   margin: 10px auto;
   display: block;
-  width: 600px;
+  width: 500px;
   border: 1px solid black;
   background: white;
 }
@@ -90,8 +90,8 @@ ul {
 .square {
   display: block;
   float: left;
-  width: 28px;
-  height: 28px;
+  width: 23px;
+  height: 23px;
   border: 1px dotted lightgrey;
 }
 
@@ -105,7 +105,7 @@ ul {
 }
 
 figure div.scores {
-  width: 500px;
+  width: 350px;
   margin: 0 auto;
 }
 
@@ -122,7 +122,7 @@ figure div > h4.high-score {
 }
 
 figure h4 {
-  font-size: 32px;
+  font-size: 24px;
   text-align: center;
 }
 
