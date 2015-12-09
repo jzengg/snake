@@ -119,13 +119,9 @@
   };
 
   View.prototype.generateApple = function () {
-    var appleIndex = Math.floor(Math.random() * 400);
-    var square = this.$el.find(".board li:nth-child(" + appleIndex + ")");
-    if (!square.hasClass("snake")) {
-      square.addClass("apple");
-    } else {
-      this.generateApple();
-    }
+    var emptySquares = this.$el.find(".board li").not(".snake");
+    var appleIndex = Math.floor(Math.random() * emptySquares.length);
+    $(emptySquares[appleIndex]).addClass("apple");
   };
 
 })();
