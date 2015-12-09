@@ -19,6 +19,11 @@
     $("div.play-button").on("click", function (e) {
       this.resetGame();
     }.bind(this));
+
+    $("button.reset-scores").on("click", function (e) {
+      window.localStorage.setItem("high-score", 0);
+      this.$el.find("h4.high-score").attr("data-score", window.localStorage.getItem("high-score") || 0);
+    }.bind(this));
     this.$el.find("h4.high-score").attr("data-score", window.localStorage.getItem("high-score") || 0);
 
     setTimeout(this.step.bind(this), 120);
