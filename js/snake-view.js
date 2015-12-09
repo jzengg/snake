@@ -9,7 +9,7 @@
     this.board = new window.SnakeGame.Board();
     this.score = 0;
     $("html").on("keydown", function(e) {
-      // e.preventDefault();
+      e.preventDefault();
       var key = e.keyCode;
       if ([37,38,39,40].indexOf(key) !== -1) {
         this.board.snake.turn(View.KEYS[key]);
