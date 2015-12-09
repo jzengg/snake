@@ -8,7 +8,6 @@
     this.$el = $el;
     this.board = new window.SnakeGame.Board();
     this.score = 0;
-
     $("html").on("keydown", function(e) {
       e.preventDefault();
       var key = e.keyCode;
@@ -20,6 +19,7 @@
     $("div.play-button").on("click", function (e) {
       this.resetGame();
     }.bind(this));
+    this.$el.find("h4.high-score").attr("data-score", window.localStorage.getItem("high-score") || 0);
 
     setTimeout(this.step.bind(this), 120);
   };
@@ -30,6 +30,7 @@
     $(this.$el.find("h4.score")).attr("data-score", this.score);
     this.$el.find("li").removeClass("snake apple");
     this.$el.find("div.notification").toggle();
+    this.$el.find("div.new-high-score").hide();
     this.generateApple();
 
     setTimeout(this.step.bind(this), 120);
@@ -65,6 +66,12 @@
 
   View.prototype.handleGameOver = function () {
     this.$el.find("div.notification").toggle();
+    var highScore = window.localStorage.getItem("high-score") || 0;
+    if (this.score > highScore) {
+      this.$el.find("div.new-high-score").toggle();
+      window.localStorage.setItem("high-score", this.score);
+    }
+      this.$el.find("div.scores h4.high-score").attr("data-score", window.localStorage.getItem("high-score"));
   };
 
   View.prototype.incrementScore = function () {
@@ -82,13 +89,13 @@
       return;
     }
     n = 20 * newSegment.row + newSegment.col + 1;
-    var newSquare = this.$el.find("li:nth-child(" + n + ")");
+    var newSquare = this.$el.find(".board li:nth-child(" + n + ")");
 
     if (newSquare.hasClass("apple")) {
       newSquare.removeClass("apple");
       this.board.snake.grow();
       this.incrementScore();
-      this.generateApple();
+      setTimeout(this.generateApple.bind(this), 0 );
     }
 
     newSquare.addClass("snake");
@@ -102,7 +109,7 @@
 
   View.prototype.generateApple = function () {
     var appleIndex = Math.floor(Math.random() * 400);
-    var square = this.$el.find("li:nth-child(" + appleIndex + ")");
+    var square = this.$el.find(".board li:nth-child(" + appleIndex + ")");
     if (!square.hasClass("snake")) {
       square.addClass("apple");
     } else {

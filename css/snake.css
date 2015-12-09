@@ -31,6 +31,11 @@ figure div.notification {
 
 }
 
+figure div.notification div.new-high-score {
+  display: none;
+  color: red;
+}
+
 figure div.notification div.game-over {
   font-weight: bold;
   font-size: 36px;
@@ -86,11 +91,31 @@ ul {
   border-radius : 50%;
 }
 
-figure h4.score {
+figure div.scores {
+  width: 500px;
+  margin: 0 auto;
+}
+
+figure div > h4 {
+  display: block;
+}
+
+figure div > h4.score {
+  float: left;
+}
+
+figure div > h4.high-score {
+  float:right;
+}
+
+figure h4 {
   font-size: 32px;
   text-align: center;
 }
 
 figure h4.score:after {
+  content: attr(data-score);
+}
+figure h4.high-score:after {
   content: attr(data-score);
 }
