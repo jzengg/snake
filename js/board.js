@@ -21,15 +21,15 @@
     return grid;
   };
 
-  Board.prototype.emptySquares = function () {
-    for (var i = 0; i < 20; i++) {
-      for (var j = 0; j < 20; j++) {
-        if (!this.snake.segments.some(function (coord) {
-          coord.row == i && coord.col == j
-        }))
-      }
-    }
-  }
+  // Board.prototype.emptySquares = function () {
+  //   for (var i = 0; i < 20; i++) {
+  //     for (var j = 0; j < 20; j++) {
+  //       if (!this.snake.segments.some(function (coord) {
+  //         coord.row == i && coord.col == j
+  //       }))
+  //     }
+  //   }
+  // }
 
   Board.prototype.inRange = function (coord) {
     return [coord.row, coord.col].every(function (coord) {
