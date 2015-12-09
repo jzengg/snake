@@ -9,7 +9,7 @@
     this.board = new window.SnakeGame.Board();
     this.score = 0;
     $("html").on("keydown", function(e) {
-      e.preventDefault();
+      // e.preventDefault();
       var key = e.keyCode;
       if ([37,38,39,40].indexOf(key) !== -1) {
         this.board.snake.turn(View.KEYS[key]);
@@ -30,6 +30,7 @@
   };
 
   View.prototype.resetGame = function () {
+    $("html").off(".shortcut");
     this.board = new window.SnakeGame.Board();
     this.score = 0;
     $(this.$el.find("h4.score")).attr("data-score", this.score);
@@ -71,6 +72,11 @@
 
   View.prototype.handleGameOver = function () {
     this.$el.find("div.notification").toggle();
+    $("html").on("keydown.shortcut", function (e) {
+      if (e.keyCode == 32 || e.keyCode == 13) {
+        this.resetGame();
+      }
+    }.bind(this));
     var highScore = window.localStorage.getItem("high-score") || 0;
     if (this.score > highScore) {
       this.$el.find("div.new-high-score").toggle();
