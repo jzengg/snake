@@ -75,7 +75,7 @@
   };
 
   View.prototype.incrementScore = function () {
-    this.score = this.score + Math.floor(this.board.snake.segments.length * 13 * Math.random());
+    this.score = this.score + Math.floor(this.board.snake.segments.length * 13 + Math.random());
     $(this.$el.find("h4.score")).attr("data-score", this.score);
   };
 
