@@ -23,7 +23,6 @@
     $("a.reset-scores").on("click", function (e) {
       window.localStorage.setItem("high-score", 0);
       this.$el.find("h4.high-score").attr("data-score", window.localStorage.getItem("high-score"));
-      console.log("reset-scores")
     }.bind(this));
 
     this.$el.find("h4.high-score").attr("data-score", window.localStorage.getItem("high-score"));
