@@ -7,7 +7,8 @@
   var Board = window.SnakeGame.Board = function (multi) {
     this.snake = new window.SnakeGame.Snake();
     if (multi === true) {
-      this.snake2 = new window.SnakeGame.Snake(true)
+      this.multi = true;
+      this.snake2 = new window.SnakeGame.Snake(true);
     }
     this.grid = this.makeGrid(20);
   };
@@ -22,6 +23,42 @@
     }
 
     return grid;
+  };
+
+  Board.prototype.inSegments = function (head, otherSegments) {
+    return otherSegments.some(function (segment) {
+      head.equals(segment);
+    });
+  };
+
+  Board.prototype.selfCollision = function () {
+
+  };
+
+  Board.prototype.snakeCollision = function () {
+    if (this.multi) {
+      head1 = this.snake.segments[0];
+      segments1 = this.snake.segments;
+      head2 = this.snake2.segments[0];
+      segments2 = this.snake2.segments;
+      console.log(head1, segments1, "1")
+      console.log(head2, segments2, "2")
+      if (this.inSegments(head1, segments2)) {
+        console.log("orange snake wins")
+        this.winner = "Orange snake";
+        return true;
+      } else if (this.inSegments(head2, segments1)) {
+        console.log("grey snake wins")
+        this.winner = "Grey Snake";
+        return true;
+      } else {
+        return false;
+      }
+
+    } else {
+      return false;
+
+    }
   };
 
   Board.prototype.inRange = function (coord) {

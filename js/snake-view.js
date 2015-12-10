@@ -18,6 +18,7 @@
         this.board.snake.turn(View.KEYS[key]);
       }
     }.bind(this));
+  
 
     $("div.play-button").on("click", function (e) {
       this.resetGame();
@@ -164,7 +165,7 @@
       this.removeOldSegment(oldSegment2);
       var newSegment2 = this.board.snake2.segments[0];
 
-      if (this.board.snake2.isDead(newSegment2)) {
+      if (this.board.snake2.isDead(newSegment2) || this.board.snakeCollision()) {
         this.handleGameOver();
         return;
       }
@@ -178,8 +179,8 @@
     this.removeOldSegment(oldSegment);
     var newSegment = this.board.snake.segments[0];
 
-    if (this.board.snake.isDead(newSegment)) {
-      this.handleGameOver();
+    if (this.board.snake.isDead(newSegment) || this.board.snakeCollision()) {
+      this.handleGameOver(this.board.winner);
       return;
     }
 

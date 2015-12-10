@@ -73,7 +73,6 @@
     }
   };
 
-
   Snake.prototype.isDead = function (head) {
     return (
       !window.SnakeGame.Board.prototype.inRange(head) ||
