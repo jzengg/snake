@@ -22,8 +22,12 @@
   Coord.prototype.isOpposite = function (otherCoord) {
   };
 
-  var Snake = window.SnakeGame.Snake = function () {
-    this.segments = [new Coord([10, 10])];
+  var Snake = window.SnakeGame.Snake = function (multi) {
+    if (multi === true) {
+      this.segments = [new Coord([5, 5])];
+    } else {
+      this.segments = [new Coord([15, 15])];
+    }
     this.dir = "X";
     this.alreadyTurned = false;
   };

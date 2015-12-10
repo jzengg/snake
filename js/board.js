@@ -4,8 +4,11 @@
     window.SnakeGame = {};
   }
 
-  var Board = window.SnakeGame.Board = function () {
+  var Board = window.SnakeGame.Board = function (multi) {
     this.snake = new window.SnakeGame.Snake();
+    if (multi === true) {
+      this.snake2 = new window.SnakeGame.Snake(true)
+    }
     this.grid = this.makeGrid(20);
   };
 

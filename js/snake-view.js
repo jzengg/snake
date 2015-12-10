@@ -8,6 +8,8 @@
     this.$el = $el;
     this.board = new window.SnakeGame.Board();
     this.score = 0;
+    this._addModeHandlers();
+
     $("html").on("keydown", function(e) {
       var key = e.keyCode;
       if ([37,38,39,40].indexOf(key) !== -1) {
@@ -29,6 +31,17 @@
     setTimeout(this.step.bind(this), 120);
   };
 
+  View.prototype._addModeHandlers = function () {
+    this.$el.find("a.1-player").on("click", function (e) {
+      this.board = new window.SnakeGame.Board();
+    });
+
+    this.$el.find("a.2-player").on("click", function (e) {
+      this.board = new window.SnakeGame.board(true);
+    });
+
+  };
+
   View.prototype.resetGame = function () {
     $("html").off(".shortcut");
     this.board = new window.SnakeGame.Board();
@@ -46,7 +59,11 @@
     37: "W",
     38: "N",
     39: "E",
-    40: "S"
+    40: "S",
+    87: "N",
+    83: "S",
+    65: "W",
+    68: "E"
   };
 
   View.prototype.step = function () {
@@ -99,6 +116,7 @@
     this.$el.find("li:nth-child(" + n + ")").removeClass("snake");
 
     var newSegment = this.board.snake.segments[0];
+
     if (this.board.snake.isDead(newSegment)) {
       this.handleGameOver();
       return;

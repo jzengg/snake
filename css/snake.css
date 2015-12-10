@@ -31,6 +31,14 @@ figure div.notification {
 
 }
 
+div.play-modes a {
+  cursor: pointer;
+  background: grey;
+  padding: 5px;
+  margin: 5px;
+  border-radius: 5px;
+}
+
 a.reset-scores {
   margin: 0 auto;
   border-radius: 5px;
