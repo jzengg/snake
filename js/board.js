@@ -33,9 +33,9 @@
 
   Board.prototype.findMultiWinner = function () {
       if (this.snake.isDead(this.snake.segments[0])) {
-        this.winner = "orange snake";
+        this.winner = "Orange snake";
       } else if (this.snake2.isDead(this.snake2.segments[0])) {
-        this.winner = "grey snake";
+        this.winner = "Grey snake";
       }
   };
 

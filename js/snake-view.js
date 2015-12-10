@@ -128,8 +128,10 @@
   };
 
   View.prototype.handleGameOver = function (multiWinner) {
-    console.log(multiWinner)
     this.$el.find("div.notification").toggle();
+    if (multiWinner) {
+      $("div.winner").html(multiWinner + " wins!");       
+    }
     var highScore = 0;
     if (window.localStorage.getItem("high-score") != "null") {
       highScore = window.localStorage.getItem("high-score");
