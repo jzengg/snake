@@ -105,6 +105,10 @@ ul {
   background: lightgrey;
 }
 
+.snake.player2 {
+  background: orange;
+}
+
 .apple {
   background: red;
   border-radius : 50%;

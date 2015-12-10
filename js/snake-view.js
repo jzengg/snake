@@ -136,7 +136,7 @@
 
   View.prototype.removeOldSegment = function (oldSegment) {
     var n = 20 * oldSegment.row + oldSegment.col + 1;
-    this.$el.find("li:nth-child(" + n + ")").removeClass("snake");
+    this.$el.find("li:nth-child(" + n + ")").removeClass("snake player2");
   };
 
   View.prototype.render = function (oldSegment, oldSegment2) {
@@ -154,7 +154,7 @@
         newSquare2.removeClass("apple");
         this.handleEatApple(this.board.snake2);
       }
-      newSquare2.addClass("snake");
+      newSquare2.addClass("snake player2");
     }
 
     this.removeOldSegment(oldSegment);
