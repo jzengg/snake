@@ -79,7 +79,7 @@
     $("html").off(".shortcut");
     this.score = 0;
     $(this.$el.find("h4.score")).attr("data-score", this.score);
-    this.$el.find("li").removeClass("snake apple");
+    this.$el.find("li").removeClass("snake player2 apple");
     this.$el.find("div.notification").toggle();
     this.$el.find("div.new-high-score").hide();
     this.generateApple();
@@ -130,7 +130,7 @@
   View.prototype.handleGameOver = function (multiWinner) {
     this.$el.find("div.notification").toggle();
     if (multiWinner) {
-      $("div.winner").html(multiWinner + " wins!");       
+      $("div.winner").html(multiWinner + " wins!");
     }
     var highScore = 0;
     if (window.localStorage.getItem("high-score") != "null") {
@@ -173,6 +173,10 @@
       var newSegment2 = this.board.snake2.segments[0];
 
       if (this.board.snake2.isDead(newSegment2) || this.board.snakeCollision()) {
+        if (this.board.headon) {
+          var newSquare2 = this.findNewSquare(newSegment2);
+          newSquare2.addClass("player2");
+        }
         this.board.findMultiWinner();
         this.handleGameOver(this.board.winner);
         return;
@@ -183,13 +187,17 @@
         newSquare2.removeClass("apple");
         this.handleEatApple(this.board.snake2);
       }
-      newSquare2.addClass("snake player2");
+      newSquare2.addClass("player2");
     }
 
     this.removeOldSegment(oldSegment);
     var newSegment = this.board.snake.segments[0];
 
     if (this.board.snake.isDead(newSegment) || this.board.snakeCollision()) {
+      if (this.board.headon) {
+        var newSquare = this.findNewSquare(newSegment);
+        newSquare.addClass("player2");
+      }
       if (this.multi) {
         this.board.findMultiWinner();
         this.handleGameOver(this.board.winner);

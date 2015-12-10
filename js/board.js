@@ -47,6 +47,7 @@
   };
 
   Board.prototype.headOnCollision = function () {
+    console.log(Board.OPPOSITES[this.snake.dir]);
     return Board.OPPOSITES[this.snake.dir] == this.snake2.dir;
   };
 
@@ -59,6 +60,7 @@
 
       if (this.inSegments(head1, segments2)) {
         if (this.headOnCollision()) {
+          this.headon = true;
           this.winner = "Head-on collision. No one";
         } else {
           this.winner = "Orange snake";
@@ -67,6 +69,7 @@
         return true;
       } else if (this.inSegments(head2, segments1)) {
         if (this.headOnCollision()) {
+          this.headon = true;
           this.winner = "Head-on collision. No one";
         } else {
           this.winner = "Grey Snake";
