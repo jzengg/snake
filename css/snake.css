@@ -31,11 +31,26 @@ figure div.notification {
 
 }
 
+div.play-modes {
+  margin: 0 auto;
+  width: 500px;
+}
+
 div.play-modes a.active {
   background: lightgrey;
 }
 
+div.play-modes div.play-modes-buttons a {
+  float: left;
+  display: block;
+}
+
+div.play-modes div.play-modes-buttons {
+  float: left;
+}
+
 div.play-modes a {
+  display: block;
   cursor: pointer;
   background: grey;
   padding: 5px;
@@ -43,15 +58,14 @@ div.play-modes a {
   border-radius: 5px;
 }
 
-a.reset-scores {
-  margin: 0 auto;
+div.play-modes > a.reset-scores {
+  float: right;
   border-radius: 5px;
   background: black;
   color: white;
   display: block;
   cursor: pointer;
   width: 130px;
-  padding: 5px;
 }
 
 figure div.notification div.new-high-score {
