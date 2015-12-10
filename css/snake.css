@@ -31,6 +31,10 @@ figure div.notification {
 
 }
 
+div.play-modes a.active {
+  background: lightgrey;
+}
+
 div.play-modes a {
   cursor: pointer;
   background: grey;

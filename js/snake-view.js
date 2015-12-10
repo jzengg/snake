@@ -18,7 +18,7 @@
         this.board.snake.turn(View.KEYS[key]);
       }
     }.bind(this));
-  
+
 
     $("div.play-button").on("click", function (e) {
       this.resetGame();
@@ -47,10 +47,14 @@
 
   View.prototype._addModeHandlers = function () {
     $("html").find("a.1-player").on("click", function (e) {
+      $("a.1-player").addClass("active");
+      $("a.2-player").removeClass("active");
       this.setupSingle();
     }.bind(this));
 
     $("html").find("a.2-player").on("click", function (e) {
+      $("a.2-player").addClass("active");
+      $("a.1-player").removeClass("active");
       this.setupMulti();
     }.bind(this));
 
