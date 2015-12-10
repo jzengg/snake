@@ -39,17 +39,39 @@
       }
   };
 
+  Board.OPPOSITES = {
+    "N": "S",
+    "S": "N",
+    "E": "W",
+    "W" : "E"
+  };
+
+  Board.prototype.headOnCollision = function () {
+    return Board.OPPOSITES[this.snake.dir] == this.snake2.dir;
+  };
+
   Board.prototype.snakeCollision = function () {
     if (this.multi) {
       head1 = this.snake.segments[0];
       segments1 = this.snake.segments;
       head2 = this.snake2.segments[0];
       segments2 = this.snake2.segments;
+
       if (this.inSegments(head1, segments2)) {
-        this.winner = "Orange snake";
+        if (this.headOnCollision()) {
+          this.winner = "Head-on collision. No one";
+        } else {
+          this.winner = "Orange snake";
+
+        }
         return true;
       } else if (this.inSegments(head2, segments1)) {
-        this.winner = "Grey Snake";
+        if (this.headOnCollision()) {
+          this.winner = "Head-on collision. No one";
+        } else {
+          this.winner = "Grey Snake";
+
+        }
         return true;
       } else {
         return false;
