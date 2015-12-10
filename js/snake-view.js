@@ -77,7 +77,10 @@
         this.resetGame();
       }
     }.bind(this));
-    var highScore = window.localStorage.getItem("high-score") || 0;
+    var highScore = 0;
+    if (window.localStorage.getItem("high-score") != "null") {
+      highScore = window.localStorage.getItem("high-score");
+    }
     if (this.score > highScore) {
       this.$el.find("div.new-high-score").toggle();
       window.localStorage.setItem("high-score", this.score);
