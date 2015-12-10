@@ -82,11 +82,18 @@
   };
 
   View.prototype.step = function () {
-    if (this.board.snake2)
-      this.board.snake.alreadyTurned = false;
-      var oldSegment = this.board.snake.segments.slice(-1)[0];
-      this.board.snake.move();
+    this.board.snake.alreadyTurned = false;
+    var oldSegment = this.board.snake.segments.slice(-1)[0];
+    this.board.snake.move();
+
+    if (this.multi) {
+      this.board.snake2.alreadyTurned = false;
+      var oldSegment2 = this.board.snake2.segments.slice(-1)[0];
+      this.board.snake2.move();
+      this.render(oldSegment, oldSegment2);
+    } else {
       this.render(oldSegment);
+    }
 
   };
 
@@ -127,33 +134,65 @@
     $(this.$el.find("h4.score")).attr("data-score", this.score);
   };
 
-  View.prototype.render = function (oldSegment, oldSegment2) {
+  View.prototype.removeOldSegment = function (oldSegment) {
     var n = 20 * oldSegment.row + oldSegment.col + 1;
     this.$el.find("li:nth-child(" + n + ")").removeClass("snake");
+  };
 
+  View.prototype.render = function (oldSegment, oldSegment2) {
+    if (this.multi) {
+      this.removeOldSegment(oldSegment2);
+      var newSegment2 = this.board.snake2.segments[0];
+
+      if (this.board.snake2.isDead(newSegment2)) {
+        this.handleGameOver();
+        return;
+      }
+
+      var newSquare2 = this.findNewSquare(newSegment2);
+      if (newSquare2.hasClass('apple')) {
+        newSquare2.removeClass("apple");
+        this.handleEatApple(this.board.snake2);
+      }
+      newSquare2.addClass("snake");
+    }
+
+    this.removeOldSegment(oldSegment);
     var newSegment = this.board.snake.segments[0];
 
     if (this.board.snake.isDead(newSegment)) {
       this.handleGameOver();
       return;
     }
-    n = 20 * newSegment.row + newSegment.col + 1;
-    var newSquare = this.$el.find(".board li:nth-child(" + n + ")");
+    var newSquare = this.findNewSquare(newSegment);
 
     if (newSquare.hasClass("apple")) {
       newSquare.removeClass("apple");
-      this.board.snake.grow();
-      this.incrementScore();
-      setTimeout(this.generateApple.bind(this), 0 );
+      this.handleEatApple(this.board.snake);
     }
 
     newSquare.addClass("snake");
-    var length = this.board.snake.segments.length;
+    setTimeout(this.step.bind(this), 120);
+  };
+
+  View.prototype.findNewSquare = function (newSegment) {
+    n = 20 * newSegment.row + newSegment.col + 1;
+    return this.$el.find(".board li:nth-child(" + n + ")");
+  };
+
+  View.prototype.handleSpeedUp = function (lengths) {
+    var length = Math.max.apply(Math, lengths);
     var speed = 150 - length*2 ;
     if (speed <= 70) {
       speed = 70;
     }
     setTimeout(this.step.bind(this), speed);
+  };
+
+  View.prototype.handleEatApple = function (snake) {
+    snake.grow();
+    this.incrementScore();
+    setTimeout(this.generateApple.bind(this), 0 );
   };
 
   View.prototype.generateApple = function () {
