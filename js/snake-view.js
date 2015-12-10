@@ -20,12 +20,13 @@
       this.resetGame();
     }.bind(this));
 
-    $("button.reset-scores").on("click", function (e) {
+    $("a.reset-scores").on("click", function (e) {
       window.localStorage.setItem("high-score", 0);
       this.$el.find("h4.high-score").attr("data-score", window.localStorage.getItem("high-score"));
+      console.log("reset-scores")
     }.bind(this));
-    this.$el.find("h4.high-score").attr("data-score", window.localStorage.getItem("high-score"));
 
+    this.$el.find("h4.high-score").attr("data-score", window.localStorage.getItem("high-score"));
     setTimeout(this.step.bind(this), 120);
   };
 
@@ -72,11 +73,6 @@
 
   View.prototype.handleGameOver = function () {
     this.$el.find("div.notification").toggle();
-    $("html").on("keydown.shortcut", function (e) {
-      if (e.keyCode == 32) {
-        this.resetGame();
-      }
-    }.bind(this));
     var highScore = 0;
     if (window.localStorage.getItem("high-score") != "null") {
       highScore = window.localStorage.getItem("high-score");
@@ -86,10 +82,16 @@
       window.localStorage.setItem("high-score", this.score);
     }
       this.$el.find("div.scores h4.high-score").attr("data-score", window.localStorage.getItem("high-score"));
+
+    $("html").on("keydown.shortcut", function (e) {
+      if (e.keyCode == 32) {
+        this.resetGame();
+      }
+    }.bind(this));
   };
 
   View.prototype.incrementScore = function () {
-    this.score = this.score + Math.floor(this.board.snake.segments.length * 13 + Math.random());
+    this.score = this.score + this.board.snake.segments.length * 13 + Math.floor(5*Math.random());
     $(this.$el.find("h4.score")).attr("data-score", this.score);
   };
 

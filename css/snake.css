@@ -31,16 +31,14 @@ figure div.notification {
 
 }
 
-button.reset-scores {
-  box-shadow: 0;
+a.reset-scores {
   margin: 0 auto;
   border-radius: 5px;
-  border: 1px solid black;
   background: black;
   color: white;
   display: block;
   cursor: pointer;
-  width: 60px;
+  width: 130px;
   padding: 5px;
 }
 
