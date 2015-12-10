@@ -8,6 +8,7 @@
     this.$el = $el;
     this.board = new window.SnakeGame.Board();
     this.score = 0;
+    this.multi = false;
     this._addModeHandlers();
 
     $("html").on("keydown", function(e) {
@@ -32,14 +33,28 @@
   };
 
   View.prototype._addModeHandlers = function () {
-    this.$el.find("a.1-player").on("click", function (e) {
+    $("html").find("a.1-player").on("click", function (e) {
+      this.multi = false;
       this.board = new window.SnakeGame.Board();
-    });
+      $("html").off(".multi");
+    }.bind(this));
 
-    this.$el.find("a.2-player").on("click", function (e) {
-      this.board = new window.SnakeGame.board(true);
-    });
+    $("html").find("a.2-player").on("click", function (e) {
+      this.multi = true;
+      this.board = new window.SnakeGame.Board(true);
+      this._addSecondTurnHandler();
+    }.bind(this));
 
+  };
+
+  View.prototype._addSecondTurnHandler = function () {
+    $("html").on("keydown.multi", function (e) {
+      var key = e.keyCode;
+      if ([87, 83, 65, 68].indexOf(key) !== -1) {
+        e.preventDefault();
+        this.board.snake2.turn(View.KEYS[key]);
+      }
+    }.bind(this));
   };
 
   View.prototype.resetGame = function () {
@@ -67,6 +82,7 @@
   };
 
   View.prototype.step = function () {
+    if (this.board.snake2)
       this.board.snake.alreadyTurned = false;
       var oldSegment = this.board.snake.segments.slice(-1)[0];
       this.board.snake.move();
@@ -111,7 +127,7 @@
     $(this.$el.find("h4.score")).attr("data-score", this.score);
   };
 
-  View.prototype.render = function (oldSegment) {
+  View.prototype.render = function (oldSegment, oldSegment2) {
     var n = 20 * oldSegment.row + oldSegment.col + 1;
     this.$el.find("li:nth-child(" + n + ")").removeClass("snake");
 
