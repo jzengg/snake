@@ -31,8 +31,12 @@
     });
   };
 
-  Board.prototype.selfCollision = function () {
-
+  Board.prototype.findMultiWinner = function () {
+      if (this.snake.isDead(this.snake.segments[0])) {
+        this.winner = "orange snake";
+      } else if (this.snake2.isDead(this.snake2.segments[0])) {
+        this.winner = "grey snake";
+      }
   };
 
   Board.prototype.snakeCollision = function () {

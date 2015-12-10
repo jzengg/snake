@@ -127,7 +127,8 @@
     this.$el.append($ul);
   };
 
-  View.prototype.handleGameOver = function () {
+  View.prototype.handleGameOver = function (multiWinner) {
+    console.log(multiWinner)
     this.$el.find("div.notification").toggle();
     var highScore = 0;
     if (window.localStorage.getItem("high-score") != "null") {
@@ -170,7 +171,8 @@
       var newSegment2 = this.board.snake2.segments[0];
 
       if (this.board.snake2.isDead(newSegment2) || this.board.snakeCollision()) {
-        this.handleGameOver();
+        this.board.findMultiWinner();
+        this.handleGameOver(this.board.winner);
         return;
       }
 
@@ -179,12 +181,19 @@
         newSquare2.removeClass("apple");
         this.handleEatApple(this.board.snake2);
       }
-      newSquare2.addClass("snake player2");    }
+      newSquare2.addClass("snake player2");
+    }
+
     this.removeOldSegment(oldSegment);
     var newSegment = this.board.snake.segments[0];
 
     if (this.board.snake.isDead(newSegment) || this.board.snakeCollision()) {
-      this.handleGameOver(this.board.winner);
+      if (this.multi) {
+        this.board.findMultiWinner();
+        this.handleGameOver(this.board.winner);
+      } else {
+        this.handleGameOver();
+      }
       return;
     }
 
