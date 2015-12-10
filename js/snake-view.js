@@ -32,17 +32,25 @@
     setTimeout(this.step.bind(this), 120);
   };
 
+  View.prototype.setupMulti = function () {
+    this.multi = true;
+    this.board = new window.SnakeGame.Board(true);
+    this._addSecondTurnHandler();
+  };
+
+  View.prototype.setupSingle = function () {
+    this.multi = false;
+    this.board = new window.SnakeGame.Board();
+    $("html").off(".multi");
+  };
+
   View.prototype._addModeHandlers = function () {
     $("html").find("a.1-player").on("click", function (e) {
-      this.multi = false;
-      this.board = new window.SnakeGame.Board();
-      $("html").off(".multi");
+      this.setupSingle();
     }.bind(this));
 
     $("html").find("a.2-player").on("click", function (e) {
-      this.multi = true;
-      this.board = new window.SnakeGame.Board(true);
-      this._addSecondTurnHandler();
+      this.setupMulti();
     }.bind(this));
 
   };
@@ -57,9 +65,13 @@
     }.bind(this));
   };
 
-  View.prototype.resetGame = function () {
+  View.prototype.resetGame = function (multi) {
+    if (multi) {
+      this.setupMulti();
+    } else {
+      this.setupSingle();
+    }
     $("html").off(".shortcut");
-    this.board = new window.SnakeGame.Board();
     this.score = 0;
     $(this.$el.find("h4.score")).attr("data-score", this.score);
     this.$el.find("li").removeClass("snake apple");
@@ -124,7 +136,7 @@
 
     $("html").on("keydown.shortcut", function (e) {
       if (e.keyCode == 32) {
-        this.resetGame();
+        this.resetGame(this.multi);
       }
     }.bind(this));
   };
@@ -137,6 +149,14 @@
   View.prototype.removeOldSegment = function (oldSegment) {
     var n = 20 * oldSegment.row + oldSegment.col + 1;
     this.$el.find("li:nth-child(" + n + ")").removeClass("snake player2");
+  };
+
+  View.prototype.renderSnake2 = function (oldSegment2) {
+
+  };
+
+  View.prototype.renderSnake1 = function (oldSegment) {
+
   };
 
   View.prototype.render = function (oldSegment, oldSegment2) {
@@ -154,9 +174,7 @@
         newSquare2.removeClass("apple");
         this.handleEatApple(this.board.snake2);
       }
-      newSquare2.addClass("snake player2");
-    }
-
+      newSquare2.addClass("snake player2");    }
     this.removeOldSegment(oldSegment);
     var newSegment = this.board.snake.segments[0];
 
@@ -164,6 +182,7 @@
       this.handleGameOver();
       return;
     }
+
     var newSquare = this.findNewSquare(newSegment);
 
     if (newSquare.hasClass("apple")) {
@@ -172,6 +191,7 @@
     }
 
     newSquare.addClass("snake");
+
     setTimeout(this.step.bind(this), 120);
   };
 
