@@ -38,7 +38,7 @@ div.play-modes {
 }
 
 div.play-modes a.active {
-  border-bottom: 2px solid black;
+  box-shadow: inset 1px 1px 1px lightgrey;
   background: darkgrey;
   color: white;
 }
@@ -58,6 +58,7 @@ div.play-modes div.play-modes-buttons {
 }
 
 div.play-modes a {
+  box-shadow: 1px 1px 1px black;
   display: block;
   cursor: pointer;
   background: lightgrey;
@@ -94,12 +95,6 @@ figure div.notification div.play-button:hover {
   cursor: pointer;
   color: yellow;
 }
-/*
-div.container {
-  width: 700px;
-  position: absolute;
-  left: 0;
-}*/
 
 figure.paused {
   opacity: 0.5;
