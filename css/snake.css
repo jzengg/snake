@@ -106,12 +106,13 @@ ul {
 }
 
 .board {
-  margin: 10px auto;
+  margin: 0 auto;
   display: block;
   width: 500px;
   border: 1px solid black;
   background: white;
-}
+  margin-bottom: 3px;
+  }
 
 .square {
   display: block;
@@ -129,6 +130,15 @@ ul {
   background: orange;
 }
 
+div.instructions {
+
+  display: block;
+  font-size: 12px;
+  width: 500px;
+  text-align: center;
+  margin: 20px auto;
+}
+
 .apple {
   background: red;
   border-radius : 50%;
@@ -137,9 +147,11 @@ ul {
 figure div.scores {
   width: 350px;
   margin: 0 auto;
+  margin-bottom: 10px;
 }
 
 figure div > h4 {
+  margin: 0;
   display: block;
 }
 
