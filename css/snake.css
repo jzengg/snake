@@ -18,15 +18,15 @@ body {
 
 figure div.notification {
   position: absolute;
-  box-shadow: 2px 2px 2px grey;
+  box-shadow: 0px 0px 7px 1px rgba(0,0,0,0.77);
   text-align: center;
   display: none;
   padding: 5px;
   width: 410px;
   left: 23%;
   top: 40%;
-  background: grey;
-  color: white;
+  background: white;
+  color: black;
   font-size: 24px;
 
 }
@@ -40,6 +40,10 @@ div.play-modes a.active {
   border-bottom: 2px solid black;
   background: darkgrey;
   color: white;
+}
+
+div.winner {
+  color: blue;
 }
 
 
@@ -130,10 +134,14 @@ ul {
 }
 
 .snake {
+  border: 1px solid darkgrey;
+  border-radius: 5px;
   background: lightgrey;
 }
 
 .player2 {
+  border: 1px solid darkorange;
+  border-radius: 5px;
   background: orange;
 }
 
