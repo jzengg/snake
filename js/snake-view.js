@@ -160,14 +160,6 @@
     this.$el.find("li:nth-child(" + n + ")").removeClass("snake player2");
   };
 
-  View.prototype.renderSnake2 = function (oldSegment2) {
-
-  };
-
-  View.prototype.renderSnake1 = function (oldSegment) {
-
-  };
-
   View.prototype.render = function (oldSegment, oldSegment2) {
     if (this.multi) {
       this.removeOldSegment(oldSegment2);
