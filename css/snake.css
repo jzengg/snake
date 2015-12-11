@@ -37,8 +37,10 @@ div.play-modes {
 }
 
 div.play-modes a.active {
-  background: lightgrey;
+  background: darkgrey;
+  color: white;
 }
+
 
 div.play-modes div.play-modes-buttons a {
   float: left;
@@ -52,7 +54,7 @@ div.play-modes div.play-modes-buttons {
 div.play-modes a {
   display: block;
   cursor: pointer;
-  background: grey;
+  background: lightgrey;
   padding: 5px;
   margin: 5px;
   border-radius: 5px;
