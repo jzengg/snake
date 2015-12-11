@@ -14,6 +14,7 @@ html, body, figure, ul, li {
 body {
   font-family: 'Open Sans', sans-serif;
   font-size: 16px;
+  background: lightyellow;
 }
 
 figure div.notification {
