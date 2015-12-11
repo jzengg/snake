@@ -37,6 +37,7 @@ div.play-modes {
 }
 
 div.play-modes a.active {
+  border-bottom: 2px solid black;
   background: darkgrey;
   color: white;
 }
