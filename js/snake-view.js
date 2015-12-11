@@ -9,6 +9,7 @@
     this.board = new window.SnakeGame.Board();
     this.score = 0;
     this.multi = false;
+    this.paused = false;
     this._addModeHandlers();
 
     $("html").on("keydown", function(e) {
@@ -19,6 +20,18 @@
       if ([37,38,39,40].indexOf(key) !== -1) {
         e.preventDefault();
         this.board.snake.turn(View.KEYS[key]);
+      }
+    }.bind(this));
+
+    $("html").on("keydown", function(e) {
+      var key = e.keyCode;
+      if (key == 80) {
+        if (this.paused === false)
+          this.paused = true;
+        else {
+          this.paused = false;
+          setTimeout(this.step.bind(this), 120);
+        }
       }
     }.bind(this));
 
@@ -81,6 +94,7 @@
       this.setupSingle();
     }
     $("html").off(".shortcut");
+    this.paused = false;
     this.score = 0;
     $(this.$el.find("h4.score")).attr("data-score", this.score);
     this.$el.find("li").removeClass("snake player2 apple");
@@ -103,6 +117,9 @@
   };
 
   View.prototype.step = function () {
+    if (this.paused) {
+      return;
+    }
     this.board.snake.alreadyTurned = false;
     var oldSegment = this.board.snake.segments.slice(-1)[0];
     this.board.snake.move();
