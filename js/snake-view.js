@@ -130,8 +130,10 @@
 
   View.prototype.handleGameOver = function (multiWinner) {
     this.$el.find("div.notification").toggle();
-    if (multiWinner) {
+    if (this.multi) {
       $("div.winner").html(multiWinner + " wins!");
+    } else {
+      $("div.winner").html("");
     }
     var highScore = 0;
     if (window.localStorage.getItem("high-score") != "null") {
