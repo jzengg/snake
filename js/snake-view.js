@@ -42,6 +42,7 @@
   View.prototype.setupSingle = function () {
     this.multi = false;
     this.board = new window.SnakeGame.Board();
+    $("html").find(".board li").removeClass("player2");
     $("html").off(".multi");
   };
 
