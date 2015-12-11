@@ -12,9 +12,12 @@
     this._addModeHandlers();
 
     $("html").on("keydown", function(e) {
-      e.preventDefault();
       var key = e.keyCode;
+      if (key == 32) {
+        e.preventDefault();
+      }
       if ([37,38,39,40].indexOf(key) !== -1) {
+        e.preventDefault();
         this.board.snake.turn(View.KEYS[key]);
       }
     }.bind(this));
