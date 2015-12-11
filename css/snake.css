@@ -101,6 +101,10 @@ div.container {
   left: 0;
 }*/
 
+figure.paused {
+  opacity: 0.5;
+}
+
 figure {
   margin: 20px auto;
   width: 800px;

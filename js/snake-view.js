@@ -26,9 +26,12 @@
     $("html").on("keydown", function(e) {
       var key = e.keyCode;
       if (key == 80) {
-        if (this.paused === false)
+        if (this.paused === false) {
           this.paused = true;
+          this.$el.addClass("paused");
+        }
         else {
+          this.$el.removeClass("paused");
           this.paused = false;
           setTimeout(this.step.bind(this), 120);
         }
