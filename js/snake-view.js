@@ -100,7 +100,7 @@
     this.paused = false;
     this.score = 0;
     $(this.$el.find("h4.score")).attr("data-score", this.score);
-    this.$el.find("li").removeClass("snake player2 apple");
+    this.$el.find("li").removeClass("snake player2 apple head");
     this.$el.find("div.notification").toggle();
     this.$el.find("div.new-high-score").hide();
     this.generateApple();
@@ -182,7 +182,20 @@
 
   View.prototype.removeOldSegment = function (oldSegment) {
     var n = 20 * oldSegment.row + oldSegment.col + 1;
-    this.$el.find("li:nth-child(" + n + ")").removeClass("snake player2");
+      this.$el.find("li:nth-child(" + n + ")").removeClass("snake player2 head");
+  };
+
+  View.prototype.renderHead = function (snake) {
+    var head = snake.segments[0];
+    var n = 20 * head.row + head.col + 1;
+    this.$el.find("li:nth-child(" + n + ")").addClass("head");
+  };
+
+  View.prototype.clearHead = function (snake) {
+    if (snake.segments.length == 1) {return;}
+    var prevHead = snake.segments[1];
+    var n = 20 * prevHead.row + prevHead.col + 1;
+    this.$el.find("li:nth-child(" + n +")").removeClass("head");
   };
 
   View.prototype.render = function (oldSegment, oldSegment2) {
@@ -232,7 +245,8 @@
       this.handleEatApple(this.board.snake);
     }
 
-    newSquare.addClass("snake");
+    newSquare.addClass("snake head");
+    this.clearHead(this.board.snake);
 
     setTimeout(this.step.bind(this), 120);
   };

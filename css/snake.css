@@ -32,6 +32,10 @@ figure div.notification {
 
 }
 
+li.head {
+  background: green;
+}
+
 div.play-modes {
   margin: 0 auto;
   width: 500px;
