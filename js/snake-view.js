@@ -237,7 +237,7 @@
       }
       return;
     }
-
+    // var head1 = this.handleHeadClass(snake);
     var newSquare = this.findNewSquare(newSegment);
 
     if (newSquare.hasClass("apple")) {
@@ -250,6 +250,24 @@
 
     setTimeout(this.step.bind(this), 120);
   };
+
+  // View.prototype.handleHeadClass = function(snake) {
+  //   switch (snake.dir) {
+  //     case "N":
+  //
+  //       break;
+  //     case "E":
+  //
+  //       break;
+  //     case "W":
+  //
+  //       break;
+  //     case "S":
+  //
+  //       break;
+  //
+  //   }
+  // };
 
   View.prototype.findNewSquare = function (newSegment) {
     n = 20 * newSegment.row + newSegment.col + 1;

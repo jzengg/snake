@@ -32,8 +32,9 @@ figure div.notification {
 
 }
 
-li.head {
-  background: green;
+li.head:after {
+  /*content: ":"*/
+  /*background: white;*/
 }
 
 div.play-modes {
