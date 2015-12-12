@@ -40,8 +40,8 @@ li.head-north:after {
     content: ":";
     font-size: 20px;
     color: black;
-    top: -30px;
-    left: -1px;
+    top: -37px;
+    left: -2px;
     text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
     transform: rotate(-90deg)}
 li.head-east:after {
@@ -72,8 +72,8 @@ li.head-south:after {
     content: ":";
     font-size: 20px;
     color: black;
-    top: -22px;
-    left: -1px;
+    top: -28px;
+    left: -2px;
     text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
     transform: rotate(-90deg)}
 li.head-north:before {
@@ -91,14 +91,14 @@ li.head-east:before {
    content: "Y";
    color: red;
    right:-17px;
-   bottom: -9px;
+   bottom: -6px;
    transform: rotate(90deg);}
 li.head-west:before {
     display: block;
     font-weight: bold;
     position: relative;
     left:-17px;
-    top: -4px;
+    top: -6px;
     content: "Y";
     color: red;
     transform: rotate(-90deg);
