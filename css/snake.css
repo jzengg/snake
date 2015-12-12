@@ -249,13 +249,15 @@ div.instructions {
 .apple:after {
   content: "~";
   display: inline-block;
-  transform: rotate(80deg);
+  transform: rotate(140deg);
   font-size: 30px;
   color: green;
-  top: -20px;
+  left: 10px;
+  top: -16px;
   position: relative;
-
 }
+
+
 
 figure div.scores {
   width: 500px;
