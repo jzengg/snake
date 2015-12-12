@@ -75,7 +75,8 @@ li.head-south:after {
     top: -28px;
     left: -2px;
     text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
-    transform: rotate(-90deg)}
+    transform: rotate(-90deg)
+  }
 li.head-north:before {
   display: block;
     font-weight: bold;
@@ -83,7 +84,8 @@ li.head-north:before {
     content: "Y";
     color: red;
     top: -16px;
-    right: -7px;  }
+    right: -7px;
+  }
 li.head-east:before {
   display: block;
    font-weight: bold;
@@ -92,7 +94,8 @@ li.head-east:before {
    color: red;
    right:-17px;
    bottom: -6px;
-   transform: rotate(90deg);}
+   transform: rotate(90deg);
+ }
 li.head-west:before {
     display: block;
     font-weight: bold;
@@ -111,7 +114,8 @@ li.head-south:before {
    color: red;
    transform: rotate(-180deg);
    bottom:-20px;
-   left: -7px;}
+   left: -7px;
+ }
 
 div.play-modes {
   margin: 0 auto;
@@ -237,7 +241,20 @@ div.instructions {
 
 .apple {
   background: red;
-  border-radius : 50%;
+  border: 1px solid black;
+  border-radius : 65%;
+  box-shadow: inset 2px 3px 2px darkred;
+}
+
+.apple:after {
+  content: "~";
+  display: inline-block;
+  transform: rotate(80deg);
+  font-size: 30px;
+  color: green;
+  top: -20px;
+  position: relative;
+
 }
 
 figure div.scores {
