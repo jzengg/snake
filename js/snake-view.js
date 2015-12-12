@@ -100,7 +100,7 @@
     this.paused = false;
     this.score = 0;
     $(this.$el.find("h4.score")).attr("data-score", this.score);
-    this.$el.find("li").removeClass("snake player2 apple head");
+    this.$el.find("li").removeClass("snake player2 apple head-east head-north head-west head-south");
     this.$el.find("div.notification").toggle();
     this.$el.find("div.new-high-score").hide();
     this.generateApple();
@@ -185,12 +185,6 @@
       this.$el.find("li:nth-child(" + n + ")").removeClass("snake player2 head-north head-west head-east head-south");
   };
 
-  View.prototype.renderHead = function (snake) {
-    var head = snake.segments[0];
-    var n = 20 * head.row + head.col + 1;
-    this.$el.find("li:nth-child(" + n + ")").addClass("head");
-  };
-
   View.prototype.clearHead = function (snake) {
     if (snake.segments.length == 1) {return;}
     var prevHead = snake.segments[1];
@@ -212,13 +206,14 @@
         this.handleGameOver(this.board.winner);
         return;
       }
-
+      var head2 = this.handleHeadClass(this.board.snake2);
       var newSquare2 = this.findNewSquare(newSegment2);
       if (newSquare2.hasClass('apple')) {
         newSquare2.removeClass("apple");
         this.handleEatApple(this.board.snake2);
       }
-      newSquare2.addClass("player2");
+      newSquare2.addClass("player2 " + head2);
+      this.clearHead(this.board.snake2);
     }
 
     this.removeOldSegment(oldSegment);
