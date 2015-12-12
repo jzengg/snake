@@ -182,7 +182,7 @@
 
   View.prototype.removeOldSegment = function (oldSegment) {
     var n = 20 * oldSegment.row + oldSegment.col + 1;
-      this.$el.find("li:nth-child(" + n + ")").removeClass("snake player2 head");
+      this.$el.find("li:nth-child(" + n + ")").removeClass("snake player2 head-north head-west head-east head-south");
   };
 
   View.prototype.renderHead = function (snake) {
@@ -195,7 +195,7 @@
     if (snake.segments.length == 1) {return;}
     var prevHead = snake.segments[1];
     var n = 20 * prevHead.row + prevHead.col + 1;
-    this.$el.find("li:nth-child(" + n +")").removeClass("head");
+    this.$el.find("li:nth-child(" + n +")").removeClass("head-north head-west head-east head-south");
   };
 
   View.prototype.render = function (oldSegment, oldSegment2) {
@@ -237,7 +237,7 @@
       }
       return;
     }
-    // var head1 = this.handleHeadClass(snake);
+    var head1 = this.handleHeadClass(this.board.snake);
     var newSquare = this.findNewSquare(newSegment);
 
     if (newSquare.hasClass("apple")) {
@@ -245,29 +245,30 @@
       this.handleEatApple(this.board.snake);
     }
 
-    newSquare.addClass("snake head");
+    newSquare.addClass("snake " + head1);
     this.clearHead(this.board.snake);
 
     setTimeout(this.step.bind(this), 120);
   };
 
-  // View.prototype.handleHeadClass = function(snake) {
-  //   switch (snake.dir) {
-  //     case "N":
-  //
-  //       break;
-  //     case "E":
-  //
-  //       break;
-  //     case "W":
-  //
-  //       break;
-  //     case "S":
-  //
-  //       break;
-  //
-  //   }
-  // };
+  View.prototype.handleHeadClass = function(snake) {
+    var head;
+    switch (snake.dir) {
+      case "N":
+        head = "head-north";
+        break;
+      case "E":
+        head = "head-east";
+        break;
+      case "W":
+        head = "head-west";
+        break;
+      case "S":
+        head = "head-south";
+        break;
+    }
+    return head;
+  };
 
   View.prototype.findNewSquare = function (newSegment) {
     n = 20 * newSegment.row + newSegment.col + 1;

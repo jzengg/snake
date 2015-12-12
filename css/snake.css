@@ -32,9 +32,17 @@ figure div.notification {
 
 }
 
-li.head:after {
-  /*content: ":"*/
-  /*background: white;*/
+li.head-north:after {
+  content: "^"
+}
+li.head-east:after {
+  content: ">";
+}
+li.head-west:after {
+  content: "<";
+}
+li.head-south:after {
+  content: "▼";
 }
 
 div.play-modes {
