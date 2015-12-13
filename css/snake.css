@@ -287,6 +287,11 @@ figure div > h4 {
 
 figure div > h4.score {
   float: left;
+  border: 1px solid darkgrey;
+  padding: 5px;
+  color: white;
+  border-radius: 5px;
+  background: darkgrey;
 }
 
 figure div > h4.high-score {
@@ -334,6 +339,7 @@ footer > span > a {
 
 footer > span > a:hover {
   text-decoration: underline;
+  color: darkred;
 }
 
 footer > a > img {
