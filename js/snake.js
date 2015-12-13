@@ -62,6 +62,10 @@
     }
   };
 
+  Snake.prototype.head = function () {
+    return this.segments[0];
+  };
+
   Snake.prototype.snakeCollision = function () {
     if (this.segments.length === 1) {
       return false;

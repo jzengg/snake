@@ -236,7 +236,7 @@
     this.$el.find("li:nth-child(" + n +")").removeClass("head-north head-west head-east head-south");
   };
 
-  View.PLAYERS = ["", "player2"]
+  View.PLAYERS = ["", "player2"];
 
   View.prototype.render = function (oldSegments) {
     var lengths = this.snakes.map(function (snake) {return snake.segments.length;
@@ -246,75 +246,45 @@
     for (var i = 0; i < oldSegments.length; i++) {
       this.removeOldSegment(oldSegments[i]);
       newSegment = oldSegments[i][0];
-      if (this.isGameOver) {
-        handle game over logic;
+
+      if (this.isGameOver()) {
+        if (this.board.headon) { this.handleHeadOn(newSegment, i);}
+          this.determineGameOver();
         return;
       }
+
       head = this.handleHeadClass(this.snakes[i]);
       newSquare = this.findNewSquare(newSegment);
-      if (newSquare2.hasClass('apple')) {
-        newSquare2.removeClass('apple');
-        this.handleEatApple(this.snaeks[i])
+
+      if (newSquare.hasClass('apple')) {
+        this.handleEatApple(this.snakes[i], newSquare);
       }
-      newSquare.addClass()
+
+      newSquare.addClass(this.PLAYERS[i] + head);
+      this.clearHead(this.snakes[i]);
     }
-
-
-
-    if (this.multi) {
-      lengths.push(this.board.snake2.segments.length);
-      this.removeOldSegment(oldSegment2);
-      var newSegment2 = this.board.snake2.segments[0];
-
-      if (this.board.snake2.isDead(newSegment2) || this.board.snakeCollision()) {
-        if (this.board.headon) {
-          var newSquare2 = this.findNewSquare(newSegment2);
-          newSquare2.addClass("player2");
-        }
-        this.board.findMultiWinner();
-        this.handleGameOver(this.board.winner);
-        return;
-      }
-      var head2 = this.handleHeadClass(this.board.snake2);
-      var newSquare2 = this.findNewSquare(newSegment2);
-      if (newSquare2.hasClass('apple')) {
-        newSquare2.removeClass("apple");
-        this.handleEatApple(this.board.snake2);
-      }
-      newSquare2.addClass("player2 " + head2);
-      this.clearHead(this.board.snake2);
-    }
-
-
-    lengths.push(this.board.snake.segments.length);
-    this.removeOldSegment(oldSegment);
-    var newSegment = this.board.snake.segments[0];
-
-    if (this.board.snake.isDead(newSegment) || this.board.snakeCollision()) {
-      if (this.board.headon) {
-        var newSquare = this.findNewSquare(newSegment);
-        newSquare.addClass("player2");
-      }
-      if (this.multi) {
-        this.board.findMultiWinner();
-        this.handleGameOver(this.board.winner);
-      } else {
-        this.handleGameOver();
-      }
-      return;
-    }
-    var head1 = this.handleHeadClass(this.board.snake);
-    var newSquare = this.findNewSquare(newSegment);
-
-    if (newSquare.hasClass("apple")) {
-      newSquare.removeClass("apple");
-      this.handleEatApple(this.board.snake);
-    }
-
-    newSquare.addClass("snake " + head1);
-    this.clearHead(this.board.snake);
-
     this.handleSpeedUp(lengths);
+  };
+
+  View.prototype.determineGameOver = function () {
+    if (this.multi) {
+      this.board.findMultiWinner();
+      this.handleGameOver(this.board.winner);
+    } else {
+      this.handleGameOver();
+    }
+  };
+
+  View.prototype.handleHeadOn = function (newSegment, snakeIndex) {
+    this.findNewSquare(newSegment).addClass(this.PLAYERS[snakeIndex]);
+  };
+
+  View.prototype.isGameOver = function () {
+    this.snakes.some(function (snake) {
+      return (
+        snake.isDead(snake.head) || this.board.snakeCollision()
+      );
+    }.bind(this));
   };
 
   View.prototype.handleHeadClass = function(snake) {
@@ -350,9 +320,9 @@
     setTimeout(this.step.bind(this), speed);
   };
 
-  View.prototype.handleEatApple = function (snake) {
-    var head = snake.segments[0];
-    var square = this.findNewSquare(head).addClass("apple-response");
+  View.prototype.handleEatApple = function (snake, oldSquare) {
+    oldSquare.removeClass('apple');
+    var square = this.findNewSquare(snake.head).addClass("apple-response");
     snake.grow();
     this.incrementScore();
     setTimeout(this.generateApple.bind(this), 0 );
