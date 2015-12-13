@@ -162,24 +162,38 @@
     this.$el.append($ul);
   };
 
-  View.prototype.handleGameOver = function (multiWinner) {
+  View.prototype.handleGameOverNote = function (multiWinner) {
     this.$el.find("div.notification").toggle();
     this.$el.find(".board").addClass("game-over");
+
     if (this.multi) {
       $("div.winner").html(multiWinner + " wins!");
     } else {
       $("div.winner").html("");
     }
+  };
+
+  View.prototype.handleGameOverHighScore = function () {
     var highScore = 0;
     if (window.localStorage.getItem("high-score") != "null") {
       highScore = window.localStorage.getItem("high-score");
     }
+
     if (this.score > highScore) {
       this.$el.find("div.new-high-score").toggle();
       window.localStorage.setItem("high-score", this.score);
     }
-      this.$el.find("div.scores h4.high-score").attr("data-score", window.localStorage.getItem("high-score"));
 
+    this.$el.find("div.scores h4.high-score").attr("data-score", window.localStorage.getItem("high-score"));
+  };
+
+  View.prototype.handleGameOver = function (multiWinner) {
+    this.handleGameOverNote(multiWinner);
+    this.handleGameOverHighScore();
+    this._addNewGameShortcut(0);
+  };
+
+  View.prototype._addNewGameShortcut = function () {
     $("html").on("keydown.shortcut", function (e) {
       if (e.keyCode == 32) {
         this.resetGame(this.multi);
@@ -191,15 +205,14 @@
     if (time) {
       this.score += Math.floor(5*Math.random());
     } else {
-      if (this.multi) {
-        lengths = [this.board.snake.segments.length, this.board.snake2.segments.length];
-        var length = Math.max.apply(Math, lengths);
-        this.score += length * 13 + Math.floor(5*Math.random());
-      } else {
-        this.score = this.score + this.board.snake.segments.length * 13 + Math.floor(5*Math.random());
+        this.score += this.maxSnakeLength() * 13 + Math.floor(5*Math.random());
       }
-    }
     $(this.$el.find("h4.score")).attr("data-score", this.score);
+  };
+
+  View.prototype.maxSnakeLength = function () {
+    var lengths = this.snakes.map (function (snake) {return snake.segments.length;});
+    return Math.max.apply(Math, lengths);
   };
 
   View.prototype.removeOldSegment = function (oldSegment) {
