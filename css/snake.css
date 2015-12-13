@@ -244,7 +244,6 @@ div.instructions {
   border: 1px solid black;
   border-radius : 65%;
   box-shadow: inset 8px -8px 5px 0px rgba(128,0,0,0.59);
-  /*box-shadow: inset 2px 3px 2px darkred;*/
 }
 
 .apple:after {
