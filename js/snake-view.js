@@ -27,11 +27,14 @@
     68: "E"
   };
 
+  View.ALL_CLASSES = "snake apple-response player2 head-north head-west head-east head-south";
+  View.HEADS = "head-north head-west head-east head-south";
+  View.PLAYERS = ["snake ", "player2 "];
+
   View.prototype.setupHighScore = function () {
     if (window.localStorage.getItem("high-score") === null) {
       window.localStorage.setItem("high-score", 0);
     }
-
     this.$el.find("h4.high-score").attr("data-score", window.localStorage.getItem("high-score"));
   };
 
@@ -138,7 +141,7 @@
     this.paused = false;
     this.score = 0;
     $(this.$el.find("h4.score")).attr("data-score", this.score);
-    this.$el.find(".board li").removeClass("snake apple-response player2 apple head-east head-north head-west head-south");
+    this.$el.find(".board li").removeClass(View.ALL_CLASSES);
     this.$el.find("div.notification").toggle();
     this.$el.find("div.new-high-score").hide();
   };
@@ -220,10 +223,6 @@
       this.$el.find(".board li:nth-child(" + n + ")").removeClass(View.ALL_CLASSES);
   };
 
-  View.ALL_CLASSES = "snake apple-response player2 head-north head-west head-east head-south";
-  View.HEADS = "head-north head-west head-east head-south";
-  View.PLAYERS = ["snake ", "player2 "];
-
   View.prototype.clearHead = function (snake) {
     if (snake.segments.length == 1) {return;}
     var prevHead = snake.segments[1];
@@ -249,8 +248,6 @@
   };
 
   View.prototype.render = function (oldSegments) {
-    var lengths = this.snakes.map(function (snake) {return snake.segments.length;
-    });
     var newSegment, newSquare, head;
 
     for (var i = 0; i < oldSegments.length; i++) {
@@ -272,7 +269,7 @@
       newSquare.addClass(View.PLAYERS[i] + head);
       this.clearHead(this.snakes[i]);
     }
-    this.handleSpeedUp(lengths);
+    this.handleSpeedUp(this.maxSnakeLength());
   };
 
   View.prototype.determineGameOver = function () {
@@ -320,9 +317,8 @@
     return this.$el.find("li:nth-child(" + n + ")");
   };
 
-  View.prototype.handleSpeedUp = function (lengths) {
-    var length = Math.max.apply(Math, lengths);
-    var speed = 120 - length*3 ;
+  View.prototype.handleSpeedUp = function (maxLength) {
+    var speed = 120 - maxLength*3 ;
     if (speed <= 70) {
       speed = 70;
     }
