@@ -27,7 +27,7 @@
     68: "E"
   };
 
-  View.ALL_CLASSES = "snake apple-response player2 head-north head-west head-east head-south";
+  View.ALL_CLASSES = "snake apple apple-response player2 head-north head-west head-east head-south";
   View.HEADS = "head-north head-west head-east head-south";
   View.PLAYERS = ["snake ", "player2 "];
 
@@ -238,12 +238,14 @@
 
     var oldSegment;
     var oldSegments = [];
+
     this.snakes.forEach(function (snake) {
       snake.alreadyTurned = false;
       oldSegment = snake.segments.slice(-1)[0];
       oldSegments.push(oldSegment);
       snake.move();
     }, this);
+
     this.render(oldSegments);
   };
 
@@ -256,19 +258,20 @@
 
       if (this.isGameOver()) {
         if (this.board.headon) { this.handleHeadOn(newSegment, i);}
-          this.determineGameOver();
+
+        this.determineGameOver();
         return;
       }
 
       head = this.handleHeadClass(this.snakes[i]);
       newSquare = this.findNewSquare(newSegment);
 
-      if (newSquare.hasClass('apple')) {
-        this.handleEatApple(this.snakes[i], newSquare);
-      }
+      if (newSquare.hasClass('apple')) { this.handleEatApple(this.snakes[i], newSquare);}
+
       newSquare.addClass(View.PLAYERS[i] + head);
       this.clearHead(this.snakes[i]);
     }
+
     this.handleSpeedUp(this.maxSnakeLength());
   };
 

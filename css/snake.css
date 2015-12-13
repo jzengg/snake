@@ -299,6 +299,9 @@ figure div > h4.score {
 }
 
 figure div > h4.high-score {
+  border: 1px solid lightyellow;
+  padding: 5px;
+  border-radius: 5px;
   float:right;
 }
 
