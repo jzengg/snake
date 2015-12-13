@@ -204,10 +204,10 @@
 
   View.prototype.removeOldSegment = function (oldSegment) {
     var n = 20 * oldSegment.row + oldSegment.col + 1;
-      this.$el.find(".board li:nth-child(" + n + ")").removeClass(this.ALL_CLASSES);
+      this.$el.find(".board li:nth-child(" + n + ")").removeClass(View.ALL_CLASSES);
   };
 
-  View.ALL_CLASSES = "snake, apple-response, player2, head-north, head-west, head-east, head-south";
+  View.ALL_CLASSES = "snake apple-response player2 head-north head-west head-east head-south";
   View.HEADS = "head-north head-west head-east head-south";
   View.PLAYERS = ["snake ", "player2 "];
 
