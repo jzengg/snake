@@ -12,6 +12,7 @@
     this.paused = false;
 
     this._addHandlers();
+    this.snakes = [this.board.snake];
     setTimeout(this.step.bind(this), 120);
   };
 
@@ -149,20 +150,14 @@
     this.handleTimeScore();
 
     var oldSegment;
+    var oldSegments = [];
     this.snakes.forEach(function (snake) {
       snake.alreadyTurned = false;
       oldSegment = snake.segments.slice(-1)[0];
+      oldSegments.push(oldSegment);
       snake.move();
-    });
-    // how to handle render? make render take an array of segments rather than 2 args?
-    if (this.multi) {
-      this.board.snake2.alreadyTurned = false;
-      var oldSegment2 = this.board.snake2.segments.slice(-1)[0];
-      this.board.snake2.move();
-      this.render(oldSegment, oldSegment2);
-    } else {
-      this.render(oldSegment);
-    }
+    }, this);
+    this.render(oldSegments);
   };
 
   View.prototype.handleTimeScore = function () {
@@ -226,14 +221,17 @@
 
   View.prototype.removeOldSegment = function (oldSegment) {
     var n = 20 * oldSegment.row + oldSegment.col + 1;
-      this.$el.find("li:nth-child(" + n + ")").removeClass("snake apple-response player2 head-north head-west head-east head-south");
+      this.$el.find(".board li:nth-child(" + n + ")").removeClass(this.ALL_CLASSES);
   };
+
+  View.ALL_CLASSES = "snake, apple-response, player2, head-north, head-west, head-east, head-south";
+  View.HEADS = "head-north head-west head-east head-south";
 
   View.prototype.clearHead = function (snake) {
     if (snake.segments.length == 1) {return;}
     var prevHead = snake.segments[1];
     var n = 20 * prevHead.row + prevHead.col + 1;
-    this.$el.find("li:nth-child(" + n +")").removeClass("head-north head-west head-east head-south");
+    this.$el.find("li:nth-child(" + n +")").removeClass(View.HEADS);
   };
 
   View.PLAYERS = ["", "player2"];
@@ -244,8 +242,9 @@
     var newSegment, newSquare, head;
 
     for (var i = 0; i < oldSegments.length; i++) {
+      debugger
       this.removeOldSegment(oldSegments[i]);
-      newSegment = oldSegments[i][0];
+      newSegment = this.snakes[i].head();
 
       if (this.isGameOver()) {
         if (this.board.headon) { this.handleHeadOn(newSegment, i);}
@@ -259,10 +258,10 @@
       if (newSquare.hasClass('apple')) {
         this.handleEatApple(this.snakes[i], newSquare);
       }
-
-      newSquare.addClass(this.PLAYERS[i] + head);
+      newSquare.addClass(View.PLAYERS[i] + head);
       this.clearHead(this.snakes[i]);
     }
+    debugger
     this.handleSpeedUp(lengths);
   };
 
@@ -276,19 +275,19 @@
   };
 
   View.prototype.handleHeadOn = function (newSegment, snakeIndex) {
-    this.findNewSquare(newSegment).addClass(this.PLAYERS[snakeIndex]);
+    this.findNewSquare(newSegment).addClass(View.PLAYERS[snakeIndex]);
   };
 
   View.prototype.isGameOver = function () {
-    this.snakes.some(function (snake) {
+    return this.snakes.some(function (snake) {
       return (
-        snake.isDead(snake.head) || this.board.snakeCollision()
+        snake.isDead(snake.head()) || this.board.snakeCollision()
       );
     }.bind(this));
   };
 
   View.prototype.handleHeadClass = function(snake) {
-    var head;
+    var head = "";
     switch (snake.dir) {
       case "N":
         head = "head-north";
