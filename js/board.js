@@ -47,7 +47,6 @@
   };
 
   Board.prototype.headOnCollision = function () {
-    console.log(Board.OPPOSITES[this.snake.dir]);
     return Board.OPPOSITES[this.snake.dir] == this.snake2.dir;
   };
 
