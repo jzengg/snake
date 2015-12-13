@@ -293,7 +293,7 @@ figure div.scores {
   margin-bottom: 10px;
 }
 
-figure div > h4.score h4.high-score {
+figure div.scores > h4 {
   margin: 0;
   display: block;
   padding: 5px;
