@@ -48,7 +48,7 @@
       this.$el.find("h4.high-score").attr("data-score", window.localStorage.getItem("high-score"));
     }.bind(this));
 
-    if (window.localStorage.getItem("high-score") == "null") {
+    if (window.localStorage.getItem("high-score") == null) {
       window.localStorage.setItem("high-score", 0);
     }
 
