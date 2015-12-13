@@ -10,8 +10,48 @@
     this.score = 0;
     this.multi = false;
     this.paused = false;
-    this._addModeHandlers();
 
+    this._addHandlers();
+    setTimeout(this.step.bind(this), 120);
+  };
+
+  View.KEYS = {
+    37: "W",
+    38: "N",
+    39: "E",
+    40: "S",
+    87: "N",
+    83: "S",
+    65: "W",
+    68: "E"
+  };
+
+  View.prototype.setupHighScore = function () {
+    if (window.localStorage.getItem("high-score") === null) {
+      window.localStorage.setItem("high-score", 0);
+    }
+
+    this.$el.find("h4.high-score").attr("data-score", window.localStorage.getItem("high-score"));
+  };
+
+  View.prototype._addHandlers = function () {
+    this._addModeHandlers();
+    this._addMainKeyDown();
+    this._addClickHandlers();
+  };
+
+  View.prototype._addClickHandlers = function () {
+    $("div.play-button").on("click", function (e) {
+      this.resetGame();
+    }.bind(this));
+
+    $("a.reset-scores").on("click", function (e) {
+      window.localStorage.setItem("high-score", 0);
+      this.$el.find("h4.high-score").attr("data-score", window.localStorage.getItem("high-score"));
+    }.bind(this));
+  };
+
+  View.prototype._addMainKeyDown = function () {
     $("html").on("keydown", function(e) {
       var key = e.keyCode;
       if (key == 32) {
@@ -37,23 +77,6 @@
         }
       }
     }.bind(this));
-
-
-    $("div.play-button").on("click", function (e) {
-      this.resetGame();
-    }.bind(this));
-
-    $("a.reset-scores").on("click", function (e) {
-      window.localStorage.setItem("high-score", 0);
-      this.$el.find("h4.high-score").attr("data-score", window.localStorage.getItem("high-score"));
-    }.bind(this));
-
-    if (window.localStorage.getItem("high-score") == null) {
-      window.localStorage.setItem("high-score", 0);
-    }
-
-    this.$el.find("h4.high-score").attr("data-score", window.localStorage.getItem("high-score"));
-    setTimeout(this.step.bind(this), 120);
   };
 
   View.prototype.setupMulti = function () {
@@ -100,6 +123,13 @@
     } else {
       this.setupSingle();
     }
+    this.resetDOM();
+    this.generateApple();
+
+    setTimeout(this.step.bind(this), 120);
+  };
+
+  View.prototype.resetDOM = function () {
     $("html").off(".shortcut");
     this.$el.find(".board").removeClass("game-over");
     this.paused = false;
@@ -108,20 +138,6 @@
     this.$el.find("li").removeClass("snake apple-response player2 apple head-east head-north head-west head-south");
     this.$el.find("div.notification").toggle();
     this.$el.find("div.new-high-score").hide();
-    this.generateApple();
-
-    setTimeout(this.step.bind(this), 120);
-  };
-
-  View.KEYS = {
-    37: "W",
-    38: "N",
-    39: "E",
-    40: "S",
-    87: "N",
-    83: "S",
-    65: "W",
-    68: "E"
   };
 
   View.prototype.step = function () {
