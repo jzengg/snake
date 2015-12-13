@@ -11,11 +11,31 @@ html, body, figure, ul, li {
 
 }
 
+ul {
+  list-style: none;
+}
+
+.group:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
 body {
   font-family: 'Open Sans', sans-serif;
   font-size: 16px;
   background: lightyellow;
 }
+
+div.instructions {
+  display: block;
+  font-size: 14px;
+  width: 500px;
+  text-align: center;
+  margin: 10px auto;
+}
+
+/*NOTIFICATION*/
 
 figure div.notification {
   z-index: 2;
@@ -30,13 +50,32 @@ figure div.notification {
   background: white;
   color: black;
   font-size: 24px;
-
 }
 
-.apple-response {
-  background: red !important;
-  box-shadow: 2px 2px 2px grey !important;
+figure div.notification div.new-high-score {
+  display: none;
+  color: red;
 }
+
+figure div.notification div.game-over {
+  font-weight: bold;
+  font-size: 30px;
+}
+
+figure div.notification div {
+  margin: 30px;
+}
+
+figure div.notification div.play-button:hover {
+  cursor: pointer;
+  color: yellow;
+}
+
+div.winner {
+  color: blue;
+}
+
+/*HEAD*/
 
 li.head-north:after {
   display: block;
@@ -122,6 +161,8 @@ li.head-south:before {
    left: -7px;
  }
 
+ /*PLAY-MODES*/
+
 div.play-modes {
   margin: 0 auto;
   width: 500px;
@@ -132,11 +173,6 @@ div.play-modes a.active {
   background: darkgrey;
   color: white;
 }
-
-div.winner {
-  color: blue;
-}
-
 
 div.play-modes div.play-modes-buttons a {
   float: left;
@@ -167,24 +203,7 @@ div.play-modes > a.reset-scores {
   width: 130px;
 }
 
-figure div.notification div.new-high-score {
-  display: none;
-  color: red;
-}
-
-figure div.notification div.game-over {
-  font-weight: bold;
-  font-size: 30px;
-}
-
-figure div.notification div {
-  margin: 30px;
-}
-
-figure div.notification div.play-button:hover {
-  cursor: pointer;
-  color: yellow;
-}
+/*FIGURE*/
 
 figure.paused {
   opacity: 0.5;
@@ -194,16 +213,6 @@ figure {
   margin: 20px auto;
   width: 800px;
   position: relative;
-}
-
-ul {
-  list-style: none;
-}
-
-.group:after {
-  content: "";
-  display: block;
-  clear: both;
 }
 
 .board.game-over {
@@ -240,13 +249,8 @@ ul {
   background: orange;
 }
 
-div.instructions {
-  display: block;
-  font-size: 14px;
-  width: 500px;
-  text-align: center;
-  margin: 10px auto;
-}
+
+/*APPLE*/
 
 .apple {
   background: red;
@@ -276,7 +280,12 @@ div.instructions {
   position: relative;
 }
 
+.apple-response {
+  background: red !important;
+  box-shadow: 2px 2px 2px grey !important;
+}
 
+/*SCORES*/
 
 figure div.scores {
   width: 500px;
@@ -284,24 +293,22 @@ figure div.scores {
   margin-bottom: 10px;
 }
 
-figure div > h4 {
+figure div > h4.score h4.high-score {
   margin: 0;
   display: block;
+  padding: 5px;
+  border-radius: 5px;
 }
 
 figure div > h4.score {
   float: left;
   border: 1px solid darkgrey;
-  padding: 5px;
   color: white;
-  border-radius: 5px;
   background: darkgrey;
 }
 
 figure div > h4.high-score {
   border: 1px solid lightyellow;
-  padding: 5px;
-  border-radius: 5px;
   float:right;
 }
 
@@ -316,6 +323,8 @@ figure h4.score:after {
 figure h4.high-score:after {
   content: attr(data-score);
 }
+
+/*FOOTER*/
 
 footer {
   display: block;
