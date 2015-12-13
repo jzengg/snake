@@ -97,6 +97,7 @@
       this.setupSingle();
     }
     $("html").off(".shortcut");
+    this.$el.find(".board").removeClass("game-over");
     this.paused = false;
     this.score = 0;
     $(this.$el.find("h4.score")).attr("data-score", this.score);
@@ -153,6 +154,7 @@
 
   View.prototype.handleGameOver = function (multiWinner) {
     this.$el.find("div.notification").toggle();
+    this.$el.find(".board").addClass("game-over");
     if (this.multi) {
       $("div.winner").html(multiWinner + " wins!");
     } else {

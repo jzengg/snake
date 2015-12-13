@@ -201,6 +201,10 @@ ul {
   clear: both;
 }
 
+.board.game-over {
+  opacity: 0.5;
+}
+
 .board {
   margin: 0 auto;
   display: block;
