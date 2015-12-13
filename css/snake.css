@@ -215,6 +215,7 @@ ul {
   }
 
 .square {
+  position: relative;
   display: block;
   float: left;
   width: 23px;
@@ -250,14 +251,24 @@ div.instructions {
   box-shadow: inset 8px -8px 5px 0px rgba(128,0,0,0.59);
 }
 
+.apple:before {
+  content: "●";
+  transform: scaleX(1.8);
+  font-size: 8px;
+  position: absolute;
+  top: -2px;
+  left: 12px;
+  color: #ffb3b3;
+}
+
 .apple:after {
-  content: "~";
+  content: "🍂";
   display: inline-block;
-  transform: rotate(140deg);
-  font-size: 30px;
+  transform: rotate(20deg);
+  font-size: 14px;
   color: green;
-  left: 10px;
-  top: -16px;
+  left: 15px;
+  top: -15px;
   position: relative;
 }
 
