@@ -236,15 +236,31 @@
     this.$el.find("li:nth-child(" + n +")").removeClass("head-north head-west head-east head-south");
   };
 
+  View.PLAYERS = ["", "player2"]
+
   View.prototype.render = function (oldSegments) {
     var lengths = this.snakes.map(function (snake) {return snake.segments.length;
     });
-    var newSegment;
-    oldSegments.forEach(function (segment) {
-      this.removeOldSegment(segment);
-      newSegment = segments[0];
-      
-    }, this)
+    var newSegment, newSquare, head;
+
+    for (var i = 0; i < oldSegments.length; i++) {
+      this.removeOldSegment(oldSegments[i]);
+      newSegment = oldSegments[i][0];
+      if (this.isGameOver) {
+        handle game over logic;
+        return;
+      }
+      head = this.handleHeadClass(this.snakes[i]);
+      newSquare = this.findNewSquare(newSegment);
+      if (newSquare2.hasClass('apple')) {
+        newSquare2.removeClass('apple');
+        this.handleEatApple(this.snaeks[i])
+      }
+      newSquare.addClass()
+    }
+
+
+
     if (this.multi) {
       lengths.push(this.board.snake2.segments.length);
       this.removeOldSegment(oldSegment2);
@@ -268,6 +284,8 @@
       newSquare2.addClass("player2 " + head2);
       this.clearHead(this.board.snake2);
     }
+
+
     lengths.push(this.board.snake.segments.length);
     this.removeOldSegment(oldSegment);
     var newSegment = this.board.snake.segments[0];
@@ -335,8 +353,6 @@
   View.prototype.handleEatApple = function (snake) {
     var head = snake.segments[0];
     var square = this.findNewSquare(head).addClass("apple-response");
-    // setTimeout(function () {square.removeClass("apple-response");
-    // }, 240);
     snake.grow();
     this.incrementScore();
     setTimeout(this.generateApple.bind(this), 0 );
