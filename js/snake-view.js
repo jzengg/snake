@@ -52,7 +52,7 @@
   };
 
   View.prototype._addMainKeyDown = function () {
-    $("html").on("keydown", function(e) {
+    $("html").on("keydown.player1Keys", function(e) {
       var key = e.keyCode;
       if (key == 32) {
         e.preventDefault();
@@ -63,7 +63,7 @@
       }
     }.bind(this));
 
-    $("html").on("keydown", function(e) {
+    $("html").on("keydown.pause", function(e) {
       var key = e.keyCode;
       if (key == 80) {
         if (this.paused === false) {
@@ -82,12 +82,14 @@
   View.prototype.setupMulti = function () {
     this.multi = true;
     this.board = new window.SnakeGame.Board(true);
+    this.snakes = [this.board.snake, this.board.snake2];
     this._addSecondTurnHandler();
   };
 
   View.prototype.setupSingle = function () {
     this.multi = false;
     this.board = new window.SnakeGame.Board();
+    this.snakes = [this.board.snake];
     $("html").find(".board li").removeClass("player2");
     $("html").off(".multi");
   };
@@ -135,7 +137,7 @@
     this.paused = false;
     this.score = 0;
     $(this.$el.find("h4.score")).attr("data-score", this.score);
-    this.$el.find("li").removeClass("snake apple-response player2 apple head-east head-north head-west head-south");
+    this.$el.find(".board li").removeClass("snake apple-response player2 apple head-east head-north head-west head-south");
     this.$el.find("div.notification").toggle();
     this.$el.find("div.new-high-score").hide();
   };
@@ -144,9 +146,8 @@
     if (this.paused) {
       return;
     }
-    if (this.board.snake.dir != "X") {
-      this.incrementScore(true);
-    }
+    this.handleTimeScore();
+
     this.board.snake.alreadyTurned = false;
     var oldSegment = this.board.snake.segments.slice(-1)[0];
     this.board.snake.move();
@@ -158,6 +159,12 @@
       this.render(oldSegment, oldSegment2);
     } else {
       this.render(oldSegment);
+    }
+  };
+
+  View.prototype.handleTimeScore = function () {
+    if (this.board.snake.dir != "X") {
+      this.incrementScore(true);
     }
   };
 
