@@ -48,6 +48,10 @@
       this.$el.find("h4.high-score").attr("data-score", window.localStorage.getItem("high-score"));
     }.bind(this));
 
+    if (window.localStorage.getItem("high-score") == "null") {
+      window.localStorage.setItem("high-score", 0);
+    }
+
     this.$el.find("h4.high-score").attr("data-score", window.localStorage.getItem("high-score"));
     setTimeout(this.step.bind(this), 120);
   };
