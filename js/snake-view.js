@@ -124,6 +124,9 @@
     if (this.paused) {
       return;
     }
+    if (this.board.snake.dir != "X") {
+      this.incrementScore(true);
+    }
     this.board.snake.alreadyTurned = false;
     var oldSegment = this.board.snake.segments.slice(-1)[0];
     this.board.snake.move();
@@ -177,8 +180,12 @@
     }.bind(this));
   };
 
-  View.prototype.incrementScore = function () {
-    this.score = this.score + this.board.snake.segments.length * 13 + Math.floor(5*Math.random());
+  View.prototype.incrementScore = function (time) {
+    if (time) {
+      this.score += Math.floor(5*Math.random());
+    } else {
+      this.score = this.score + this.board.snake.segments.length * 13 + Math.floor(5*Math.random());
+    }
     $(this.$el.find("h4.score")).attr("data-score", this.score);
   };
 
@@ -195,7 +202,9 @@
   };
 
   View.prototype.render = function (oldSegment, oldSegment2) {
+    var lengths = [];
     if (this.multi) {
+      lengths.push(this.board.snake2.segments.length);
       this.removeOldSegment(oldSegment2);
       var newSegment2 = this.board.snake2.segments[0];
 
@@ -217,7 +226,7 @@
       newSquare2.addClass("player2 " + head2);
       this.clearHead(this.board.snake2);
     }
-
+    lengths.push(this.board.snake.segments.length);
     this.removeOldSegment(oldSegment);
     var newSegment = this.board.snake.segments[0];
 
@@ -245,7 +254,7 @@
     newSquare.addClass("snake " + head1);
     this.clearHead(this.board.snake);
 
-    setTimeout(this.step.bind(this), 120);
+    this.handleSpeedUp(lengths);
   };
 
   View.prototype.handleHeadClass = function(snake) {
@@ -274,7 +283,7 @@
 
   View.prototype.handleSpeedUp = function (lengths) {
     var length = Math.max.apply(Math, lengths);
-    var speed = 150 - length*2 ;
+    var speed = 120 - length*3 ;
     if (speed <= 70) {
       speed = 70;
     }
