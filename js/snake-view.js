@@ -148,10 +148,13 @@
     }
     this.handleTimeScore();
 
-    this.board.snake.alreadyTurned = false;
-    var oldSegment = this.board.snake.segments.slice(-1)[0];
-    this.board.snake.move();
-
+    var oldSegment;
+    this.snakes.forEach(function (snake) {
+      snake.alreadyTurned = false;
+      oldSegment = snake.segments.slice(-1)[0];
+      snake.move();
+    });
+    // how to handle render? make render take an array of segments rather than 2 args?
     if (this.multi) {
       this.board.snake2.alreadyTurned = false;
       var oldSegment2 = this.board.snake2.segments.slice(-1)[0];
@@ -233,8 +236,15 @@
     this.$el.find("li:nth-child(" + n +")").removeClass("head-north head-west head-east head-south");
   };
 
-  View.prototype.render = function (oldSegment, oldSegment2) {
-    var lengths = [];
+  View.prototype.render = function (oldSegments) {
+    var lengths = this.snakes.map(function (snake) {return snake.segments.length;
+    });
+    var newSegment;
+    oldSegments.forEach(function (segment) {
+      this.removeOldSegment(segment);
+      newSegment = segments[0];
+      
+    }, this)
     if (this.multi) {
       lengths.push(this.board.snake2.segments.length);
       this.removeOldSegment(oldSegment2);
