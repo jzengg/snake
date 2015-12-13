@@ -215,6 +215,8 @@ figure {
   position: relative;
 }
 
+/*BOARD*/
+
 .board.game-over {
   opacity: 0.5;
 }
@@ -227,6 +229,8 @@ figure {
   background: white;
   margin-bottom: 3px;
   }
+
+/*SQUARES*/
 
 .square {
   position: relative;
