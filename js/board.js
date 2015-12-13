@@ -60,7 +60,7 @@
       if (this.inSegments(head1, segments2)) {
         if (this.headOnCollision()) {
           this.headon = true;
-          this.winner = "Head-on collision. No one";
+          this.winner = "Head-on collision <br/> No one";
         } else {
           this.winner = "Orange snake";
 
