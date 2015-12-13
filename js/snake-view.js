@@ -143,23 +143,6 @@
     this.$el.find("div.new-high-score").hide();
   };
 
-  View.prototype.step = function () {
-    if (this.paused) {
-      return;
-    }
-    this.handleTimeScore();
-
-    var oldSegment;
-    var oldSegments = [];
-    this.snakes.forEach(function (snake) {
-      snake.alreadyTurned = false;
-      oldSegment = snake.segments.slice(-1)[0];
-      oldSegments.push(oldSegment);
-      snake.move();
-    }, this);
-    this.render(oldSegments);
-  };
-
   View.prototype.handleTimeScore = function () {
     if (this.board.snake.dir != "X") {
       this.incrementScore(true);
@@ -226,6 +209,7 @@
 
   View.ALL_CLASSES = "snake, apple-response, player2, head-north, head-west, head-east, head-south";
   View.HEADS = "head-north head-west head-east head-south";
+  View.PLAYERS = ["snake ", "player2 "];
 
   View.prototype.clearHead = function (snake) {
     if (snake.segments.length == 1) {return;}
@@ -234,7 +218,22 @@
     this.$el.find("li:nth-child(" + n +")").removeClass(View.HEADS);
   };
 
-  View.PLAYERS = ["", "player2"];
+  View.prototype.step = function () {
+    if (this.paused) {
+      return;
+    }
+    this.handleTimeScore();
+
+    var oldSegment;
+    var oldSegments = [];
+    this.snakes.forEach(function (snake) {
+      snake.alreadyTurned = false;
+      oldSegment = snake.segments.slice(-1)[0];
+      oldSegments.push(oldSegment);
+      snake.move();
+    }, this);
+    this.render(oldSegments);
+  };
 
   View.prototype.render = function (oldSegments) {
     var lengths = this.snakes.map(function (snake) {return snake.segments.length;
@@ -242,7 +241,6 @@
     var newSegment, newSquare, head;
 
     for (var i = 0; i < oldSegments.length; i++) {
-      debugger
       this.removeOldSegment(oldSegments[i]);
       newSegment = this.snakes[i].head();
 
@@ -261,7 +259,6 @@
       newSquare.addClass(View.PLAYERS[i] + head);
       this.clearHead(this.snakes[i]);
     }
-    debugger
     this.handleSpeedUp(lengths);
   };
 
@@ -307,7 +304,7 @@
 
   View.prototype.findNewSquare = function (newSegment) {
     n = 20 * newSegment.row + newSegment.col + 1;
-    return this.$el.find(".board li:nth-child(" + n + ")");
+    return this.$el.find("li:nth-child(" + n + ")");
   };
 
   View.prototype.handleSpeedUp = function (lengths) {
@@ -321,7 +318,7 @@
 
   View.prototype.handleEatApple = function (snake, oldSquare) {
     oldSquare.removeClass('apple');
-    var square = this.findNewSquare(snake.head).addClass("apple-response");
+    var square = this.findNewSquare(snake.head()).addClass("apple-response");
     snake.grow();
     this.incrementScore();
     setTimeout(this.generateApple.bind(this), 0 );
