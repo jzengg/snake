@@ -33,6 +33,11 @@ figure div.notification {
 
 }
 
+.apple-response {
+  background: red !important;
+  box-shadow: 2px 2px 2px grey !important;
+}
+
 li.head-north:after {
   display: block;
     font-weight: bold;

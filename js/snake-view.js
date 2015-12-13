@@ -101,7 +101,7 @@
     this.paused = false;
     this.score = 0;
     $(this.$el.find("h4.score")).attr("data-score", this.score);
-    this.$el.find("li").removeClass("snake player2 apple head-east head-north head-west head-south");
+    this.$el.find("li").removeClass("snake apple-response player2 apple head-east head-north head-west head-south");
     this.$el.find("div.notification").toggle();
     this.$el.find("div.new-high-score").hide();
     this.generateApple();
@@ -139,7 +139,6 @@
     } else {
       this.render(oldSegment);
     }
-
   };
 
   View.prototype.setupBoard = function () {
@@ -184,14 +183,20 @@
     if (time) {
       this.score += Math.floor(5*Math.random());
     } else {
-      this.score = this.score + this.board.snake.segments.length * 13 + Math.floor(5*Math.random());
+      if (this.multi) {
+        lengths = [this.board.snake.segments.length, this.board.snake2.segments.length];
+        var length = Math.max.apply(Math, lengths);
+        this.score += length * 13 + Math.floor(5*Math.random());
+      } else {
+        this.score = this.score + this.board.snake.segments.length * 13 + Math.floor(5*Math.random());
+      }
     }
     $(this.$el.find("h4.score")).attr("data-score", this.score);
   };
 
   View.prototype.removeOldSegment = function (oldSegment) {
     var n = 20 * oldSegment.row + oldSegment.col + 1;
-      this.$el.find("li:nth-child(" + n + ")").removeClass("snake player2 head-north head-west head-east head-south");
+      this.$el.find("li:nth-child(" + n + ")").removeClass("snake apple-response player2 head-north head-west head-east head-south");
   };
 
   View.prototype.clearHead = function (snake) {
@@ -291,6 +296,10 @@
   };
 
   View.prototype.handleEatApple = function (snake) {
+    var head = snake.segments[0];
+    var square = this.findNewSquare(head).addClass("apple-response");
+    // setTimeout(function () {square.removeClass("apple-response");
+    // }, 240);
     snake.grow();
     this.incrementScore();
     setTimeout(this.generateApple.bind(this), 0 );
