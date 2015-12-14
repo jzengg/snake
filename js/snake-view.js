@@ -11,6 +11,7 @@
     this.multi = false;
     this.paused = false;
 
+    this.setupHighScore();
     this._addHandlers();
     this.snakes = [this.board.snake];
     setTimeout(this.step.bind(this), 120);
