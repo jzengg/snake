@@ -342,7 +342,10 @@
       tailSquare = this.findNewSquare(tail).addClass("tail");
     }
     var emptySquares = this.$el.find(".board li").not(".snake, .player2, .tail");
-    tailSquare.removeClass("tail");
+
+    if (typeof tail != "undefined") {
+      tailSquare.removeClass("tail");
+    }
 
     var appleIndex = Math.floor(Math.random() * emptySquares.length);
     $(emptySquares[appleIndex]).addClass("apple");
