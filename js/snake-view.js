@@ -322,7 +322,7 @@
   };
 
   View.prototype.handleSpeedUp = function (maxLength) {
-    var speed = 120 - maxLength*3 ;
+    var speed = 120 - maxLength*3;
     if (speed <= 70) {
       speed = 70;
     }
@@ -332,13 +332,18 @@
   View.prototype.handleEatApple = function (snake, oldSquare) {
     oldSquare.removeClass('apple');
     var square = this.findNewSquare(snake.head()).addClass("apple-response");
-    snake.grow();
+    var tail = snake.grow();
     this.incrementScore();
-    setTimeout(this.generateApple.bind(this), 0 );
+    this.generateApple(tail);
   };
 
-  View.prototype.generateApple = function () {
-    var emptySquares = this.$el.find(".board li").not(".snake, .player2");
+  View.prototype.generateApple = function (tail) {
+    if (typeof tail != "undefined") {
+      tailSquare = this.findNewSquare(tail).addClass("tail");
+    }
+    var emptySquares = this.$el.find(".board li").not(".snake, .player2, .tail");
+    tailSquare.removeClass("tail");
+
     var appleIndex = Math.floor(Math.random() * emptySquares.length);
     $(emptySquares[appleIndex]).addClass("apple");
   };

@@ -101,6 +101,7 @@
     var newCoord = new Coord(newDir);
     var newSegment = lastSegment.plus(newCoord);
     this.segments.push(newSegment);
+    return newSegment;
   };
 
 }) ();
