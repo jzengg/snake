@@ -338,11 +338,9 @@
   };
 
   View.prototype.generateApple = function () {
-    var emptySquares = this.board.emptySquares();
+    var emptySquares = this.$el.find(".board li").not(".snake, .player2");
     var appleIndex = Math.floor(Math.random() * emptySquares.length);
-    square = emptySquares[appleIndex];
-    n = 20 * square[0] + square[1] + 1;
-    this.$el.find("li:nth-child(" + n + ")").addClass("apple");
+    $(emptySquares[appleIndex]).addClass("apple");
   };
 
 })();

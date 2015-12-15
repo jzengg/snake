@@ -13,22 +13,22 @@
     this.grid = this.makeGrid(20);
   };
 
-  Board.prototype.emptySquares = function () {
-    var segments = this.snake.segments;
-    if (this.multi) {
-      segments.concat(this.snake2.segments);
-    }
-    var empty = [];
-    for (i = 0; i < 20; i++) {
-      for (j = 0; j < 20; j++) {
-        var square = [i, j];
-          if (!this.snake.isSegmentsOnSquare(square, segments)) {
-            empty.push([i, j]);
-          }
-        }
-      }
-      return empty;
-  };
+  // Board.prototype.emptySquares = function () {
+  //   var segments = this.snake.segments;
+  //   if (this.multi) {
+  //     segments.concat(this.snake2.segments);
+  //   }
+  //   var empty = [];
+  //   for (i = 0; i < 20; i++) {
+  //     for (j = 0; j < 20; j++) {
+  //       var square = [i, j];
+  //         if (!this.snake.isSegmentsOnSquare(square, segments)) {
+  //           empty.push([i, j]);
+  //         }
+  //       }
+  //     }
+  //     return empty;
+  // };
 
   Board.prototype.makeGrid = function (size) {
     var grid = [];
