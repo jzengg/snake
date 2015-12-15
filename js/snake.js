@@ -29,6 +29,12 @@
     this.alreadyTurned = false;
   };
 
+  Snake.prototype.isSegmentsOnSquare = function (square, segments) {
+    return segments.some(function (segment) {
+      return segment.equals(new Coord(square));
+    });
+  };
+
   Snake.DIRECTIONS = {
     "N": [-1, 0],
     "S": [1, 0],

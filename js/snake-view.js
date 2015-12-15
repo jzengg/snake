@@ -221,7 +221,7 @@
 
   View.prototype.removeOldSegment = function (oldSegment) {
     var n = 20 * oldSegment.row + oldSegment.col + 1;
-      this.$el.find(".board li:nth-child(" + n + ")").removeClass(View.ALL_CLASSES);
+    this.$el.find(".board li:nth-child(" + n + ")").removeClass(View.ALL_CLASSES);
   };
 
   View.prototype.clearHead = function (snake) {
@@ -267,9 +267,9 @@
       head = this.handleHeadClass(this.snakes[i]);
       newSquare = this.findNewSquare(newSegment);
 
+      newSquare.addClass(View.PLAYERS[i] + head);
       if (newSquare.hasClass('apple')) { this.handleEatApple(this.snakes[i], newSquare);}
 
-      newSquare.addClass(View.PLAYERS[i] + head);
       this.clearHead(this.snakes[i]);
     }
 
@@ -338,9 +338,11 @@
   };
 
   View.prototype.generateApple = function () {
-    var emptySquares = this.$el.find(".board li").not(".snake");
+    var emptySquares = this.board.emptySquares();
     var appleIndex = Math.floor(Math.random() * emptySquares.length);
-    $(emptySquares[appleIndex]).addClass("apple");
+    square = emptySquares[appleIndex];
+    n = 20 * square[0] + square[1] + 1;
+    this.$el.find("li:nth-child(" + n + ")").addClass("apple");
   };
 
 })();
